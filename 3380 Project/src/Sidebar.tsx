@@ -26,7 +26,7 @@ function Sidebar() {
           </a>
         </li>
         <li className="sidebar-list-item">
-          <a href="">
+          <a href="./UpdateNote">
             <FaRegNoteSticky className="icon" /> Update Notes
           </a>
         </li>
