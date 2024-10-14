@@ -3,6 +3,7 @@ import { IoCreateOutline } from "react-icons/io5";
 import { IoIosCloud } from "react-icons/io";
 import { FaRegNoteSticky } from "react-icons/fa6";
 import { GrTree } from "react-icons/gr";
+import { Link } from "react-router-dom";
 
 function Sidebar() {
   return (
@@ -16,24 +17,24 @@ function Sidebar() {
 
       <ul className="sidebar-list">
         <li className="sidebar-list-item">
-          <a href="">
+          <Link to="/">
             <IoCreateOutline className="icon" /> Category Creation
-          </a>
+          </Link>
         </li>
         <li className="sidebar-list-item">
-          <a href="">
+          <Link to="/remoteSelection">
             <IoIosCloud className="icon" /> Remote Selection
-          </a>
+          </Link>
         </li>
         <li className="sidebar-list-item">
-          <a href="">
+          <Link to="/updateNotes">
             <FaRegNoteSticky className="icon" /> Update Notes
-          </a>
+          </Link>
         </li>
         <li className="sidebar-list-item">
-          <a href="">
+          <Link to="/taskMap">
             <GrTree className="icon" /> Task Map
-          </a>
+          </Link>
         </li>
       </ul>
     </aside>
