@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./CSS Files/CategoryComponent.css";
+import "../CSS Files/CategoryComponent.css";
 import { AiFillDelete } from "react-icons/ai";
 import { IoIosAdd } from "react-icons/io";
 import { TiDelete } from "react-icons/ti";

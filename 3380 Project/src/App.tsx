@@ -1,12 +1,11 @@
 import "./CSS Files/App.css";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
+import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CategoryCreation from "./pages/category_creation";
 import RemoteSelection from "./pages/remoteSelection";
 import UpdateNotes from "./pages/updateNotes";
 import TaskMap from "./pages/taskMap";
-
 function App() {
   return (
     <Router>
