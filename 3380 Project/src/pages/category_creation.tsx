@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import CategoryComponent from "../CategoryComponent";
+import CategoryComponent from "../components/CategoryComponent";
 import "../CSS Files/CategoryComponent.css";
 import { IoIosAdd } from "react-icons/io";
 
@@ -11,7 +11,6 @@ function CategoryCreation() {
 
   //function to spawn a category component
   const createCategory = () => {
-    
     const id = nextId.current++; //generates a unique id for the category
     setCategories((prevCategories) => [
       //updates the categories array with the new category and renders it
