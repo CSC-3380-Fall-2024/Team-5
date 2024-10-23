@@ -1,128 +1,142 @@
 import "./App.css";
 import { IoChevronDown } from "react-icons/io5";
-
-const tableData = [
-  {
-    id: 1,
-    project: "OOP Programing",
-    task: "Coding Payment function",
-    prescription:
-      "This is sample prescription about task of this project This is sample prescription about task of this project This is sample prescription about task of this project This is sample prescription about task of this project.This is sample prescription about task of this project",
-    startDate: "10/03/2024",
-    dueDate: "10/17/2024",
-    status: "Processing",
-    action: "Working",
-  },
-  {
-    id: 2,
-    project: "OOP Programing",
-    task: "Coding Payment function",
-    prescription: "This is sample prescription about task of this project",
-    startDate: "10/03/2024",
-    dueDate: "10/17/2024",
-    status: "Processing",
-    action: "Working",
-  },
-  {
-    id: 3,
-    project: "OOP Programing",
-    task: "Coding Payment function",
-    prescription: "This is sample prescription about task of this project",
-    startDate: "10/03/2024",
-    dueDate: "10/17/2024",
-    status: "Processing",
-    action: "Working",
-  },
-  {
-    id: 4,
-    project: "OOP Programing",
-    task: "Coding Payment function",
-    prescription: "This is sample prescription about task of this project",
-    startDate: "10/03/2024",
-    dueDate: "10/17/2024",
-    status: "Processing",
-    action: "Working",
-  },
-  {
-    id: 5,
-    project: "OOP Programing",
-    task: "Coding Payment function",
-    prescription: "This is sample prescription about task of this project",
-    startDate: "10/03/2024",
-    dueDate: "10/17/2024",
-    status: "Processing",
-    action: "Working",
-  },
-];
+import { data } from "./data";
+import { useState } from "react";
 
 function UpdateNote() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  const recordsPerPage = 5;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = data.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(data.length / recordsPerPage);
+  const numbers = [...Array(npage + 1).keys()].slice(1);
+
+  const statusList = ["Start", "Working", "Stuck", "Done"];
+  const [statuses, setStatuses] = useState(
+    data.map((item) => ({ id: item.id, status: "Select Action" }))
+  );
+
+  const handleStatusChange = (id, newStatus) => {
+    setStatuses((prevStatuses) =>
+      prevStatuses.map((item) =>
+        item.id === id ? { ...item, status: newStatus } : item
+      )
+    );
+  };
+
+  const handleUpdateClick = (id) => {
+    if (statuses.find((status) => status.id === id)?.status === "Done") {
+      setCurrentDate(new Date());
+    }
+  };
+
+  function prePage() {
+    if (currentPage !== 1) setCurrentPage(currentPage - 1);
+  }
+
+  function changePage(id) {
+    setCurrentPage(id);
+  }
+
+  function nextPage() {
+    if (currentPage !== npage) setCurrentPage(currentPage + 1);
+  }
+
   return (
     <div className="update_note">
-      {
-        <div>
-          <div className="w-full overflow-x-auto">
-            <table className="table-users">
-              <thead>
-                <tr>
-                  <th>Project</th>
-                  <th>Task</th>
-                  <th>StartDate</th>
-                  <th>DueDate</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableData.map((item) => (
-                  <tr>
-                    <td>{item.project}</td>
-
-                    <td>
-                      {item.task}
-                      <div className="truncate max-w-[200px]">
-                        <span>{item.prescription}</span>
+      <div className="w-full overflow-x-auto">
+        <table className="table-users">
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Task</th>
+              <th>StartDate</th>
+              <th>DueDate</th>
+              <th>Date Finish</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {records.map((item) => (
+              <tr key={item.id}>
+                <td>{item.project}</td>
+                <td>
+                  {item.task}
+                  <div className="truncate max-w-[200px]">
+                    <span>{item.description}</span>
+                  </div>
+                </td>
+                <td>{item.startDate}</td>
+                <td>{item.dueDate}</td>
+                <td>
+                  {statuses.find((status) => status.id === item.id)?.status ===
+                  "Done"
+                    ? currentDate.toDateString()
+                    : ""}
+                </td>
+                <td>
+                  <div className="dropdown">
+                    <div className="dropdown_select">
+                      <div className="dropdown_selected">
+                        <span>
+                          {statuses.find((status) => status.id === item.id)
+                            ?.status || "Select Action"}
+                        </span>
+                        <i className="icon">
+                          <IoChevronDown />
+                        </i>
                       </div>
-                    </td>
-
-                    <td>{item.startDate}</td>
-                    <td>{item.dueDate}</td>
-                    <td>{item.dueDate}</td>
-                    <td>
-                      <div className="dropdown">
-                        <div className="dropdown_select">
-                          <span className="dropdown_selected">
-                            Action
-                            <IoChevronDown className="icon" />
-                          </span>
-                          <i className="fa fa-caret-down dropdown_caret"></i>
-                        </div>
-                        <ul className="dropdown_list">
-                          <li className="dropdown_item">
-                            <span className="dropdown_text">Start</span>
-                            <i className="fas fa-plus-circle dropdown_icon"></i>
+                      <ul className="dropdown_list">
+                        {statusList.map((option) => (
+                          <li
+                            key={option}
+                            className="dropdown_item"
+                            onClick={() => {
+                              handleStatusChange(item.id, option);
+                              handleUpdateClick(item.id);
+                            }}
+                          >
+                            <span className="dropdown_text">{option}</span>
                           </li>
-                          <li className="dropdown_item">
-                            <span className="dropdown_text">Working</span>
-                            <i className="fas fa-plus-circle dropdown_icon"></i>
-                          </li>
-                          <li className="dropdown_item">
-                            <span className="dropdown_text">Stuck</span>
-                            <i className="fas fa-plus-circle dropdown_icon"></i>
-                          </li>
-                          <li className="dropdown_item">
-                            <span className="dropdown_text">Done</span>
-                            <i className="fas fa-plus-circle dropdown_icon"></i>
-                          </li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      }
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <nav>
+        <ul className="pagination">
+          <li className="page-item">
+            <a href="#" className="page-link" onClick={prePage}>
+              Prev
+            </a>
+          </li>
+          {numbers.map((n, i) => (
+            <li
+              key={i}
+              className={`page-item ${
+                currentPage === n ? "active" : "inactive"
+              }`}
+            >
+              <a href="#" className="page-link" onClick={() => changePage(n)}>
+                {n}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href="#" className="page-link" onClick={nextPage}>
+              Next
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 }
