@@ -1,25 +1,29 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useState } from "react";
 import { data } from "../data.js";
-import "../styles/updateNotes.css";
+import "../CSS Files/updateNotes.css";
 import { IoChevronDown } from "react-icons/io5";
 
 function updateNotes() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(new Date()); //useState update the current date
 
+  const [currentPage, setCurrentPage] = useState(1); //useState update current page
   const recordsPerPage = 5;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = data.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(data.length / recordsPerPage);
-  const numbers = [...Array(npage + 1).keys()].slice(1);
+  const records = data.slice(firstIndex, lastIndex); //break down data for table showing
+  const npage = Math.ceil(data.length / recordsPerPage); //Calculating number of pages
+  const numbers = [...Array(npage + 1).keys()].slice(1); // adding pages into a empty array
 
-  const statusList = ["Start", "Working", "Stuck", "Done"];
+  const statusList = ["Start", "Working", "Stuck", "Done"]; //list of statuses for a task
+
+  //Use an array to store the selected status for each row
+  //Example:[{id:1,status:"Start"},{id:2,status:"Done"}]
   const [statuses, setStatuses] = useState(
     data.map((item) => ({ id: item.id, status: "Select Action" }))
   );
 
+  //Click handler: when a dropdown item is clicked, update the state for that specific row using its id or index
   const handleStatusChange = (id, newStatus) => {
     setStatuses((prevStatuses) =>
       prevStatuses.map((item) =>
@@ -28,20 +32,24 @@ function updateNotes() {
     );
   };
 
+  //Click handler: when status is Done, set Date Finish is the current date
   const handleUpdateClick = (id) => {
     if (statuses.find((status) => status.id === id)?.status === "Done") {
       setCurrentDate(new Date());
     }
   };
 
+  //Click handler: go back the page before the current page
   function prePage() {
     if (currentPage !== 1) setCurrentPage(currentPage - 1);
   }
 
+  //Click handler: go to the nth page
   function changePage(id) {
     setCurrentPage(id);
   }
 
+  //Click handler: go to the page after the current page
   function nextPage() {
     if (currentPage !== npage) setCurrentPage(currentPage + 1);
   }
