@@ -1,5 +1,5 @@
 import React, {useRef, useState, } from "react";
-import "../CSS Files/remote.css";
+import "../CSS Files/remoteSelection.css";
 import "../CSS Files/CategoryComponent.css";
 import "../CSS Files/App.css"
 import Tabs from "../components/TabCreation.tsx";
