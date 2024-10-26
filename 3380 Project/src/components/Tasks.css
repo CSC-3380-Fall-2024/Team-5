@@ -1,0 +1,99 @@
+.App{
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+form {
+    display:flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.task-board{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: 100vh;
+    position: relative;
+}
+
+.task-boxes{
+    width: 100%;
+    height: calc(100vh - 100px);
+    position: relative;
+    overflow: hidden;
+    border: 1px spolid #ccc;
+    background-color: #ffffff;
+}
+
+.task-box{
+    border: 1px solid #007BFF;
+    border-radius: 5px;
+    padding: 5px;
+    width: 120px;
+    height: 80px;
+    margin: 10px 0;
+    cursor: grab;
+    text-align: center;
+    transition: transform 0.1s;
+    background-color: #f9f9f9;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    transition: background-color 0.3s;
+}
+
+.task-box:hover {
+    background-color: #f1f1f1;
+}
+
+.task-box h3 {
+    margin: 0;
+    color: #333;
+}
+
+.task-box p {
+    margin: 5px 0 0;
+    color: #666;
+}
+
+.delete-button{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color:#666;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.delete-button:hover{
+    opacity: 0.5;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
