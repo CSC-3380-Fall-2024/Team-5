@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./SubjectTabs.css";
+import "../CSS Files/SubjectTabs.css";
 
 const SubjectTabs: React.FC = () => {
   const [tabs, setTabs] = useState<string[]>([]);
