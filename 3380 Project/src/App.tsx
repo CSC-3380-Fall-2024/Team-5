@@ -6,8 +6,8 @@ import CategoryCreation from "./pages/category_creation";
 import RemoteSelection from "./pages/remoteSelection";
 import UpdateNotes from "./pages/updateNotes";
 import TaskMap from "./pages/taskMap";
-import SubjectPage from "./SubjectPage";
-import SubjectTabs from "./SubjectTabs";
+import SubjectPage from "./pages/SubjectPage";
+import SubjectTabs from "./components/SubjectTabs";
 
 function App() {
   return (
