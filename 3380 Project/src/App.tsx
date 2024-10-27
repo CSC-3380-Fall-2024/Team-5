@@ -6,6 +6,8 @@ import CategoryCreation from "./pages/category_creation";
 import RemoteSelection from "./pages/remoteSelection";
 import UpdateNotes from "./pages/updateNotes";
 import TaskMap from "./pages/taskMap";
+import SignUp from "./pages/signUp";
+import SignIn from "./pages/signIn";
 function App() {
   return (
     <Router>
@@ -18,6 +20,8 @@ function App() {
             <Route path="remoteSelection" element={<RemoteSelection />} />
             <Route path="updateNotes" element={<UpdateNotes />} />
             <Route path="taskMap" element={<TaskMap />} />
+            <Route path="signUp" element={<SignUp />} />
+            <Route path="signIn" element={<SignIn />} />
           </Routes>
         </main>
       </div>
