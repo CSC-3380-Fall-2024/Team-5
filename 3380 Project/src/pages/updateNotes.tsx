@@ -17,6 +17,23 @@ function updateNotes() {
 
   const statusList = ["Start", "Working", "Stuck", "Done"]; //list of statuses for a task
 
+  const [textboxVisible, setTextboxVisible] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const handleNoteClick = (index) => {
+    setInputValue(data[index].note);
+    setTextboxVisible(true);
+  };
+
+  const handleSave = (index) => {
+    const updatedData = [...data];
+    updatedData[index].note = inputValue; // Update the note in the data
+    setTextboxVisible(false); // Hide the textbox after saving
+  };
+
+  const handleClose = () => {
+    setTextboxVisible(false); // Hide the textbox when closing
+  };
+
   //Use an array to store the selected status for each row
   //Example:[{id:1,status:"Start"},{id:2,status:"Done"}]
   const [statuses, setStatuses] = useState(
@@ -60,8 +77,9 @@ function updateNotes() {
         <table className="table-users">
           <thead>
             <tr>
-              <th>Project</th>
+              <th>Member</th>
               <th>Task</th>
+              <th>Note</th>
               <th>StartDate</th>
               <th>DueDate</th>
               <th>Date Finish</th>
@@ -71,12 +89,28 @@ function updateNotes() {
           <tbody>
             {records.map((item) => (
               <tr key={item.id}>
-                <td>{item.project}</td>
-                <td>
-                  {item.task}
-                  <div className="truncate max-w-[200px]">
-                    <span>{item.description}</span>
-                  </div>
+                <td>{item.member}</td>
+                <td>{item.task}</td>
+                <td onClick={() => handleNoteClick(item.id)}>
+                  <div className="truncate max-w-[200px]">{item.note}</div>
+                  {textboxVisible && (
+                    <div className="textbox">
+                      <div className="textbox-header">
+                        <h4>Edit Note</h4>
+                        <button className="close-button" onClick={handleClose}>
+                          X
+                        </button>
+                      </div>
+                      <textarea
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        placeholder="Edit note here"
+                      />
+                      <button className="save-button" onClick={handleSave}>
+                        Save
+                      </button>
+                    </div>
+                  )}
                 </td>
                 <td>{item.startDate}</td>
                 <td>{item.dueDate}</td>
