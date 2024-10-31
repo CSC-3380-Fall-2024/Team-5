@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { IoLogoGoogle, IoEyeOff, IoEye } from "react-icons/io5";
-import { Alert } from "react-bootstrap";
+import { useState } from "react";
+import { IoLogoGoogle } from "react-icons/io5";
 import "../CSS Files/signUp.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../authContext";
@@ -9,55 +8,6 @@ import { setDoc, doc } from "firebase/firestore";
 
 function SignUp() {
   const [isShowed, setIsShowed] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [firstName, setfirstName] = useState("");
-  const [lastName, setlastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { signup, googleSignIn } = useAuth();
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    try {
-      setError("");
-      setLoading(true);
-      await signup(email, password);
-      if (signup) {
-        await setDoc(doc(database, "teams", auth.currentUser.uid), {
-          email: auth.currentUser.email,
-          firstName: firstName,
-          lastName: lastName,
-          password: password,
-        });
-      }
-      window.location.href = "/";
-    } catch (error) {
-      setError("Failed to create an account");
-    }
-    setLoading(false);
-  }
-
-  async function handleGoogleLogin() {
-    try {
-      setLoading(true);
-      await googleSignIn();
-      if (googleSignIn) {
-        await setDoc(doc(database, "teams", auth.currentUser.uid), {
-          email: auth.currentUser.email,
-          firstName: auth.currentUser.displayName,
-          photo: auth.currentUser.photoURL,
-          lastName: "",
-        });
-        window.location.href = "/";
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    setLoading(false);
-  }
-
   return (
     <div className="container">
       <div className="container-wrap">

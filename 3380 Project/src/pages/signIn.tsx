@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IoLogoGoogle, IoEyeOff, IoEye } from "react-icons/io5";
+import { IoLogoGoogle } from "react-icons/io5";
 import "../CSS Files/signUp.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../authContext";
