@@ -19,19 +19,25 @@ function updateNotes() {
 
   const [textboxVisible, setTextboxVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(null);
+
   const handleNoteClick = (index) => {
     setInputValue(data[index].note);
+    setCurrentIndex(index);
     setTextboxVisible(true);
   };
 
-  const handleSave = (index) => {
+  const handleSave = () => {
     const updatedData = [...data];
-    updatedData[index].note = inputValue; // Update the note in the data
+    updatedData[currentIndex - 1].note = inputValue; // Update the note in the data
+    setInputValue(updatedData[currentIndex - 1].note); //Call the parent function to update data
     setTextboxVisible(false); // Hide the textbox after saving
+    setCurrentIndex(null);
   };
 
   const handleClose = () => {
     setTextboxVisible(false); // Hide the textbox when closing
+    setCurrentIndex(null); //Reset current index
   };
 
   //Use an array to store the selected status for each row
@@ -92,25 +98,9 @@ function updateNotes() {
                 <td>{item.member}</td>
                 <td>{item.task}</td>
                 <td onClick={() => handleNoteClick(item.id)}>
-                  <div className="truncate max-w-[200px]">{item.note}</div>
-                  {textboxVisible && (
-                    <div className="textbox">
-                      <div className="textbox-header">
-                        <h4>Edit Note</h4>
-                        <button className="close-button" onClick={handleClose}>
-                          X
-                        </button>
-                      </div>
-                      <textarea
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        placeholder="Edit note here"
-                      />
-                      <button className="save-button" onClick={handleSave}>
-                        Save
-                      </button>
-                    </div>
-                  )}
+                  <div className="truncate max-w-[200px]">
+                    {item.note || "Click to add"}
+                  </div>
                 </td>
                 <td>{item.startDate}</td>
                 <td>{item.dueDate}</td>
@@ -153,6 +143,19 @@ function updateNotes() {
             ))}
           </tbody>
         </table>
+        {textboxVisible && (
+          <div className="modal-overlay">
+            <div className="popup-form">
+              <textarea
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                autoFocus
+              />
+              <button onClick={handleSave}>Save</button>
+              <button onClick={handleClose}>Close</button>
+            </div>
+          </div>
+        )}
       </div>
       <nav>
         <ul className="pagination">
