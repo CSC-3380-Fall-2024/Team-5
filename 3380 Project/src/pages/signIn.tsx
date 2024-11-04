@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IoLogoGoogle, IoLogoFacebook } from "react-icons/io5";
+import { IoLogoGoogle } from "react-icons/io5";
 import "../CSS Files/signUp.css";
 import { Link } from "react-router-dom";
 function SignIn() {
@@ -12,12 +12,6 @@ function SignIn() {
             <IoLogoGoogle />
           </i>
           <span className="singup-social-text">Sign in with Google</span>
-        </button>
-        <button className="signup_social">
-          <i className="icon">
-            <IoLogoFacebook />
-          </i>
-          <span className="singup-social-text">Sign in with Facebook</span>
         </button>
         <p className="or">
           <span>Or</span>
