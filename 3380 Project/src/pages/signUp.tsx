@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { IoLogoGoogle, IoLogoFacebook } from "react-icons/io5";
+import { IoLogoGoogle } from "react-icons/io5";
 import "../CSS Files/signUp.css";
 import { Link } from "react-router-dom";
 function SignUp() {
+  const [isShowed, setIsShowed] = useState(false);
   return (
     <div className="container">
       <div className="container-wrap">
@@ -13,12 +14,6 @@ function SignUp() {
               <IoLogoGoogle />
             </i>
             <span className="singup-social-text">Sign up with Google</span>
-          </button>
-          <button className="signup_social">
-            <i className="icon">
-              <IoLogoFacebook />
-            </i>
-            <span className="singup-social-text">Sign up with Facebook</span>
           </button>
         </div>
 
@@ -57,7 +52,7 @@ function SignUp() {
           />
           <button className="btnSubmit">Sign up</button>
           <p>
-            Already have an account?<Link to="/signIn">Sign IN</Link>
+            Already have an account?<Link to="/signIn">Sign In</Link>
           </p>
         </form>
       </div>
