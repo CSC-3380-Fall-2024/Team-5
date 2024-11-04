@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IoLogoGoogle } from "react-icons/io5";
+import { IoLogoGoogle, IoEyeOff, IoEye } from "react-icons/io5";
 import "../CSS Files/signUp.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../authContext";
@@ -13,7 +13,7 @@ function SignUp() {
       <div className="container-wrap">
         <h2 className="heading">Create account</h2>
         <div>
-          <button className="signup-social" onClick={handleGoogleLogin}>
+          <button className="signup-social">
             <i className="icon">
               <IoLogoGoogle />
             </i>
@@ -50,12 +50,11 @@ function SignUp() {
             required
           />
           <div className="password">
-            <label>Password</label>
+            <label htmlFor="passWord">Password</label>
             <input
               type={isShowed === true ? "text" : "password"}
               className="signupInput"
               placeholder="Eg: *******"
-              onChange={(e) => setPassword(e.target.value)}
               required
             />
             <i className="icon-eye" onClick={() => setIsShowed(!isShowed)}>
@@ -63,9 +62,7 @@ function SignUp() {
             </i>
           </div>
 
-          <button disabled={loading} className="btnSubmit">
-            Sign up
-          </button>
+          <button className="btnSubmit">Sign up</button>
           <p>
             Already have an account?<Link to="/signIn">Sign In</Link>
           </p>
