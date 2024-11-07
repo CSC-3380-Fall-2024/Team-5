@@ -8,6 +8,13 @@ import { toast } from "react-toastify";
 import { setDoc, doc } from "firebase/firestore";
 import { auth, database } from "../firebase/firebase";
 
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../authContext";
+import { Alert } from "react-bootstrap";
+import { toast } from "react-toastify";
+import { setDoc, doc } from "firebase/firestore";
+import { auth, database } from "../fireBase";
+
 function SignIn() {
   const [isShowed, setIsShowed] = useState(false);
   const [error, setError] = useState("");
@@ -27,7 +34,7 @@ function SignIn() {
         position: "top-center",
       });
     } catch (error) {
-      navigate("/signUp");
+      setError("Failed to log in");
       toast.error(error.message, {
         position: "bottom-center",
       });
@@ -39,7 +46,7 @@ function SignIn() {
       await googleSignIn();
       navigate("/CategoryCreation");
       if (googleSignIn) {
-        await setDoc(doc(database, "teams", auth.currentUser.uid), {
+        await setDoc(doc(database, "User", auth.currentUser.uid), {
           email: auth.currentUser.email,
           firstName: auth.currentUser.displayName,
           photo: auth.currentUser.photoURL,
@@ -59,6 +66,8 @@ function SignIn() {
         <h2 className="heading">Sign In</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         <button className="signup-social" onClick={handleGoogleLogin}>
+        {error && <Alert variant="danger">{error}</Alert>}
+        <button className="signup-social" onClick={handleGoogleLogin}>
           <i className="icon">
             <IoLogoGoogle />
           </i>
@@ -69,11 +78,14 @@ function SignIn() {
         </p>
 
         <form action="#" className="signup-form" onSubmit={handleSubmit}>
+
+        <form action="#" className="signup-form" onSubmit={handleSubmit}>
           <label htmlFor="email">Email</label>
           <input
             type="text"
             className="signupInput"
             placeholder="Eg: johndoe@gmail.com"
+            onChange={(e) => setEmail(e.target.value)}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
@@ -83,6 +95,7 @@ function SignIn() {
               type={isShowed === true ? "text" : "password"}
               className="signupInput"
               placeholder="Eg: *******"
+              onChange={(e) => setPassword(e.target.value)}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
