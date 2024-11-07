@@ -7,9 +7,11 @@ import RemoteSelection from "./pages/remoteSelection";
 import UpdateNotes from "./pages/updateNotes";
 import TaskMap from "./pages/taskMap";
 import SignUp from "./pages/signUp";
-import SignIn from "./pages/signIn";
+import {SignIn} from "./pages/signIn";
 import SubjectPage from "./pages/SubjectPage";
 import SubjectTabs from "./components/SubjectTabs";
+import { AuthProvider } from "./authContext";
+import ProtectedRoute from "./components/Protected";
 
 function App() {
   //const { getContacts } = useAuth();
@@ -21,15 +23,35 @@ function App() {
         <SubjectTabs />
 
         <main className="main-container">
-          <Routes>
-            <Route path="/" element={<CategoryCreation />} />
-            <Route path="remoteSelection" element={<RemoteSelection />} />
-            <Route path="updateNotes" element={<UpdateNotes />} />
-            <Route path="taskMap" element={<TaskMap />} />
-            <Route path="signUp" element={<SignUp />} />
-            <Route path="signIn" element={<SignIn />} />
-            <Route path="subject/:subjectName" element={<SubjectPage />} />{" "}
-          </Routes>
+          <AuthProvider children={undefined}>
+            <Routes>
+              <Route path="/" element={<SignIn />} />
+              <Route
+                path="CategoryCreation"
+                element={
+                  <ProtectedRoute children={undefined}>
+                    <CategoryCreation />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="remoteSelection"
+                element={
+                  <ProtectedRoute children={undefined}>
+                    <RemoteSelection />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="updateNotes" element={<UpdateNotes />} />
+              <Route path="taskMap" element={<TaskMap />} />
+              <Route path="signUp" element={<SignUp />} />
+              <Route path="signIn" element={<SignIn />} />
+              <Route
+                path="subject/:subjectName"
+                element={<SubjectPage />}
+              />{" "}
+            </Routes>
+          </AuthProvider>
         </main>
       </div>
     </Router>

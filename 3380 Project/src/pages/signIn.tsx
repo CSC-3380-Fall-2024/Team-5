@@ -6,14 +6,7 @@ import { useAuth } from "../authContext";
 import { Alert } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { setDoc, doc } from "firebase/firestore";
-import { auth, database } from "../firebase/firebase";
-
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../authContext";
-import { Alert } from "react-bootstrap";
-import { toast } from "react-toastify";
-import { setDoc, doc } from "firebase/firestore";
-import { auth, database } from "../fireBase";
+import { auth, db } from "../firebase/firebase";
 
 function SignIn() {
   const [isShowed, setIsShowed] = useState(false);
@@ -66,8 +59,6 @@ function SignIn() {
         <h2 className="heading">Sign In</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         <button className="signup-social" onClick={handleGoogleLogin}>
-        {error && <Alert variant="danger">{error}</Alert>}
-        <button className="signup-social" onClick={handleGoogleLogin}>
           <i className="icon">
             <IoLogoGoogle />
           </i>
@@ -78,29 +69,25 @@ function SignIn() {
         </p>
 
         <form action="#" className="signup-form" onSubmit={handleSubmit}>
-
-        <form action="#" className="signup-form" onSubmit={handleSubmit}>
           <label htmlFor="email">Email</label>
           <input
             type="text"
             className="signupInput"
             placeholder="Eg: johndoe@gmail.com"
             onChange={(e) => setEmail(e.target.value)}
-            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <div className="password">
             <label htmlFor="passWord">Password</label>
             <input
-              type={isShowed === true ? "text" : "password"}
+              type={isShowed ? "text" : "password"}
               className="signupInput"
               placeholder="Eg: *******"
-              onChange={(e) => setPassword(e.target.value)}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
             <i className="icon-eye" onClick={() => setIsShowed(!isShowed)}>
-              {isShowed === true ? <IoEye /> : <IoEyeOff />}
+              {isShowed ? <IoEye /> : <IoEyeOff />}
             </i>
           </div>
           <button className="btnSubmit">Sign in</button>
@@ -112,4 +99,4 @@ function SignIn() {
     </div>
   );
 }
-export default SignIn;
+export default SignIn
