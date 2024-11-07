@@ -27,7 +27,7 @@ function SignIn() {
         position: "top-center",
       });
     } catch (error) {
-      setError("Failed to log in");
+      navigate("/signUp");
       toast.error(error.message, {
         position: "bottom-center",
       });
