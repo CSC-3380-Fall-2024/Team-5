@@ -1,5 +1,3 @@
-import LogOut from "./logOut";
-
 function Header() {
   return (
     <header className="header">

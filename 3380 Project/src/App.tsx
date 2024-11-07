@@ -10,9 +10,8 @@ import SignUp from "./pages/signUp";
 import SignIn from "./pages/signIn";
 import SubjectPage from "./pages/SubjectPage";
 import SubjectTabs from "./components/SubjectTabs";
-import { AuthProvider, useAuth } from "./authContext";
+import { AuthProvider } from "./authContext";
 import ProtectedRoute from "./components/Protected";
-import LogOut from "./components/logOut";
 
 function App() {
   //const { getContacts } = useAuth();
@@ -46,22 +45,8 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="updateNotes"
-                element={
-                  <ProtectedRoute>
-                    <UpdateNotes />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="taskMap"
-                element={
-                  <ProtectedRoute>
-                    <TaskMap />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path="updateNotes" element={<UpdateNotes />} />
+              <Route path="taskMap" element={<TaskMap />} />
               <Route path="signUp" element={<SignUp />} />
               <Route path="signIn" element={<SignIn />} />
               <Route
