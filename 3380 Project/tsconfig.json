@@ -7,8 +7,5 @@
   "compilerOptions": {
     "types": ["vite/client"]
   },
-  "exclude": ["**/*.remoteSelection.tsx"],
-  "module": "esnext",
-  "target": "ESNext",
-  "moduleResolution": "Node"
+  "exclude": ["**/*.remoteSelection.tsx"]
 }

@@ -1,7 +1,7 @@
 import { useAuth } from "../authContext";
 import { useNavigate } from "react-router-dom";
 function LogOut() {
-  const { logout, user } = useAuth();
+  const { logout, getContacts } = useAuth();
   const navigate = useNavigate();
   async function handleSignOut() {
     try {
@@ -14,7 +14,7 @@ function LogOut() {
   return (
     <div>
       <div>
-        <p>Welcome, {user?.displayName}</p>
+        <p>Welcome, {getContacts?.firstName}</p>
       </div>
       <button onClick={handleSignOut} className="border">
         Logout
