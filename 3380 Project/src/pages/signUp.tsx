@@ -24,7 +24,7 @@ function SignUp() {
       setError("");
       await signup(email, password);
       if (signup) {
-        await setDoc(doc(database, "User", auth.currentUser.uid), {
+        await setDoc(doc(database, "teams", auth.currentUser.uid), {
           email: auth.currentUser.email,
           firstName: firstName,
           lastName: lastName,
@@ -47,7 +47,7 @@ function SignUp() {
     try {
       await googleSignIn();
       if (googleSignIn) {
-        await setDoc(doc(database, "User", auth.currentUser.uid), {
+        await setDoc(doc(database, "teams", auth.currentUser.uid), {
           email: auth.currentUser.email,
           firstName: auth.currentUser.displayName,
           photo: auth.currentUser.photoURL,
