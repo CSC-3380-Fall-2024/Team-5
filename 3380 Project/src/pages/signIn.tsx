@@ -39,7 +39,7 @@ function SignIn() {
       await googleSignIn();
       navigate("/CategoryCreation");
       if (googleSignIn) {
-        await setDoc(doc(database, "User", auth.currentUser.uid), {
+        await setDoc(doc(database, "teams", auth.currentUser.uid), {
           email: auth.currentUser.email,
           firstName: auth.currentUser.displayName,
           photo: auth.currentUser.photoURL,
