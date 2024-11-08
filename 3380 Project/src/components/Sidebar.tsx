@@ -17,7 +17,7 @@ function Sidebar() {
 
       <ul className="sidebar-list">
         <li className="sidebar-list-item">
-          <Link to="/">
+          <Link to="/categoryCreation">
             <IoCreateOutline className="icon" /> Category Creation
           </Link>
         </li>
