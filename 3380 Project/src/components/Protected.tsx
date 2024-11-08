@@ -1,8 +1,8 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../authContext";
 function ProtectedRoute({ children }) {
-  const { getContacts } = useAuth();
-  if (!getContacts) {
+  const { currentUser } = useAuth();
+  if (!currentUser) {
     return <Navigate to="/" />;
   }
   return children;
