@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../authContext";
 import { auth, database } from "../fireBase";
 import { setDoc, doc } from "firebase/firestore";
-import { toast } from "react-toastify";
 
 function SignUp() {
   const [isShowed, setIsShowed] = useState(false);
