@@ -12,6 +12,7 @@ import SubjectPage from "./pages/SubjectPage";
 import SubjectTabs from "./components/SubjectTabs";
 import { AuthProvider, useAuth } from "./authContext";
 import ProtectedRoute from "./components/Protected";
+import LogOut from "./components/logOut";
 
 function App() {
   //const { getContacts } = useAuth();
@@ -64,6 +65,7 @@ function App() {
                 path="subject/:subjectName"
                 element={<SubjectPage />}
               />{" "}
+              
             </Routes>
           </AuthProvider>
         </main>

@@ -4,7 +4,6 @@ import "../CSS Files/signUp.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../authContext";
 import { Alert } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { setDoc, doc } from "firebase/firestore";
 import { auth, database } from "../fireBase";
 
