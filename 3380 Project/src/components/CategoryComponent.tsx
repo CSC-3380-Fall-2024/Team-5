@@ -3,11 +3,15 @@ import "../CSS Files/CategoryComponent.css";
 import { AiFillDelete } from "react-icons/ai";
 import { IoIosAdd } from "react-icons/io";
 import { TiDelete } from "react-icons/ti";
-
+import { createTask, updateTask } from "../firebase/firebaseCrud";
 
 interface CategoryComponentProps {
   onDelete: () => void;
 }
+const teamId = "Tl7Ph2s1udw5ceTihmDJ";
+const categoryId = "to-do";
+const taskId = "rvYTZyNdZairBPAKWP60";
+const taskDescription = "I am testing this function...Did it work??";
 
 function CategoryComponent({ onDelete }: CategoryComponentProps) {
   const [catName, setCatName] = useState<string>(""); //state to update and render category name
@@ -16,13 +20,15 @@ function CategoryComponent({ onDelete }: CategoryComponentProps) {
   //called when the user clicks the add task icon
   const addTask = () => {
     setTasks([...tasks, ""]); //adds an empty string to the tasks array to create a new task
+    createTask(teamId, categoryId, taskDescription);
   };
 
   //called when the user starts typing to store the task
-  const updateTask = (index: number, value: string) => {
+  const updatedTask = (index: number, value: string) => {
     const updatedTasks = [...tasks]; //fills array with previous tasks
     updatedTasks[index] = value; //updates the task at the specified index
     setTasks(updatedTasks); //updates and renders the new tasks array
+    updateTask(teamId, categoryId, taskId, taskDescription);
   };
 
   //called when the user clicks the delete task icon
@@ -33,11 +39,15 @@ function CategoryComponent({ onDelete }: CategoryComponentProps) {
   };
 
   //called when the user presses enter or backspace
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+  const handleKeyPress = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
     if (e.key === "Enter") {
       addTask(); //adds a new task when user presses enter
     }
-    if (e.key === "Backspace" && tasks[index].length === 0) { //only deletes when the field is empty
+    if (e.key === "Backspace" && tasks[index].length === 0) {
+      //only deletes when the field is empty
       deleteTask(index); //deletes a task when user presses backspace
     }
   };
@@ -62,10 +72,13 @@ function CategoryComponent({ onDelete }: CategoryComponentProps) {
                 type="text"
                 value={task}
                 placeholder="Task"
-                onChange={(e) => updateTask(index, e.target.value)}
+                onChange={(e) => updatedTask(index, e.target.value)}
                 onKeyDown={(e) => handleKeyPress(e, index)}
               />
-              <TiDelete className="delete-task-icon" onClick={() => deleteTask(index)} />
+              <TiDelete
+                className="delete-task-icon"
+                onClick={() => deleteTask(index)}
+              />
             </li>
           ))}
           <IoIosAdd className="add-task-icon" onClick={addTask} />
