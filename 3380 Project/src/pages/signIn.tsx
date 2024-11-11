@@ -6,7 +6,7 @@ import { useAuth } from "../authContext";
 import { Alert } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { setDoc, doc } from "firebase/firestore";
-import { auth, database } from "../fireBase";
+import { auth, database } from "../firebase/firebase";
 
 function SignIn() {
   const [isShowed, setIsShowed] = useState(false);
