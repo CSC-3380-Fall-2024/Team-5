@@ -12,6 +12,7 @@ function SignIn() {
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const { login, googleSignIn } = useAuth();
   const navigate = useNavigate();
   async function handleSubmit(e) {
@@ -19,22 +20,18 @@ function SignIn() {
 
     try {
       setError("");
-
+      setLoading(true);
       await login(email, password);
       navigate("/CategoryCreation");
-      toast.success("Sign in Successfully!!", {
-        position: "top-center",
-      });
     } catch (error) {
       navigate("/signUp");
-      toast.error(error.message, {
-        position: "bottom-center",
-      });
     }
+    setLoading(false);
   }
 
   async function handleGoogleLogin() {
     try {
+      setLoading(true);
       await googleSignIn();
       navigate("/CategoryCreation");
       if (googleSignIn) {
@@ -44,13 +41,11 @@ function SignIn() {
           photo: auth.currentUser.photoURL,
           lastName: "",
         });
-        toast.success("User logged in succesfully", {
-          position: "top-center",
-        });
       }
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   }
   return (
     <div className="container">
@@ -89,7 +84,9 @@ function SignIn() {
               {isShowed === true ? <IoEye /> : <IoEyeOff />}
             </i>
           </div>
-          <button className="btnSubmit">Sign in</button>
+          <button disabled={loading} className="btnSubmit">
+            Sign in
+          </button>
           <p>
             Do not have an account yet?<Link to="/signUp">Sign Up</Link>
           </p>
