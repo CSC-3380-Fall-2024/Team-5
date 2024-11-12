@@ -19,7 +19,10 @@ function App() {
   return (
     <Router>
       <div className="grid-container">
-        <Header />
+        <AuthProvider>
+          <Header />
+        </AuthProvider>
+
         <Sidebar />
         <SubjectTabs />
 
@@ -65,7 +68,6 @@ function App() {
                 path="subject/:subjectName"
                 element={<SubjectPage />}
               />{" "}
-              
             </Routes>
           </AuthProvider>
         </main>
