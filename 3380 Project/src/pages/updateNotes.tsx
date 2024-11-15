@@ -3,8 +3,14 @@ import { useState } from "react";
 import { data } from "../data.js";
 import "../CSS Files/updateNotes.css";
 import { IoChevronDown } from "react-icons/io5";
+import Users from "../components/User.jsx";
+import { useAuth } from "../authContext";
+import { auth, database } from "../firebase/firebase";
+import { updateDoc, doc } from "firebase/firestore";
 
 function updateNotes() {
+  const teamId = "Tl7Ph2s1udw5ceTihmDJ";
+  const { users } = useAuth();
   const [currentDate, setCurrentDate] = useState(new Date()); //useState update the current date
 
   const [currentPage, setCurrentPage] = useState(1); //useState update current page
@@ -28,18 +34,20 @@ function updateNotes() {
   };
 
   const handleSave = () => {
-    const updatedData = [...data];
+    const updatedData = [...users];
     updatedData[currentIndex - 1].note = inputValue; // Update the note in the data
     setInputValue(updatedData[currentIndex - 1].note); //Call the parent function to update data
     setTextboxVisible(false); // Hide the textbox after saving
     setCurrentIndex(null);
+    updateDoc(doc(database, `teams/${teamId}/members/`, auth.currentUser.uid), {
+      note: inputValue,
+    });
   };
 
   const handleClose = () => {
     setTextboxVisible(false); // Hide the textbox when closing
     setCurrentIndex(null); //Reset current index
   };
-
   //Use an array to store the selected status for each row
   //Example:[{id:1,status:"Start"},{id:2,status:"Done"}]
   const [statuses, setStatuses] = useState(
@@ -76,7 +84,7 @@ function updateNotes() {
   function nextPage() {
     if (currentPage !== npage) setCurrentPage(currentPage + 1);
   }
-
+  console.log(users);
   return (
     <div className="update_note">
       <div className="w-full overflow-x-auto">
@@ -93,54 +101,62 @@ function updateNotes() {
             </tr>
           </thead>
           <tbody>
-            {records.map((item) => (
-              <tr key={item.id}>
-                <td>{item.member}</td>
-                <td>{item.task}</td>
-                <td onClick={() => handleNoteClick(item.id)}>
-                  <div className="truncate max-w-[200px]">
-                    {item.note || "Click to add"}
-                  </div>
-                </td>
-                <td>{item.startDate}</td>
-                <td>{item.dueDate}</td>
-                <td>
-                  {statuses.find((status) => status.id === item.id)?.status ===
-                  "Done"
-                    ? currentDate.toDateString()
-                    : ""}
-                </td>
-                <td>
-                  <div className="dropdown">
-                    <div className="dropdown_select">
-                      <div className="dropdown_selected">
-                        <span>
-                          {statuses.find((status) => status.id === item.id)
-                            ?.status || "Select Action"}
-                        </span>
-                        <i className="icon">
-                          <IoChevronDown />
-                        </i>
-                      </div>
-                      <ul className="dropdown_list">
-                        {statusList.map((option) => (
-                          <li
-                            key={option}
-                            className="dropdown_item"
-                            onClick={() => {
-                              handleStatusChange(item.id, option);
-                              handleUpdateClick(item.id);
-                            }}
-                          >
-                            <span className="dropdown_text">{option}</span>
-                          </li>
-                        ))}
-                      </ul>
+            {records.map((item) => {
+              // Find the corresponding user for each record based on a matching property (e.g., userId)
+              const user = users.find((u) => u.id === item.id); // Assuming `userId` links records to users
+              return (
+                <tr key={item.id}>
+                  <td>
+                    {user
+                      ? `${user.firstName} ${user.lastName}`
+                      : "Unknown User"}
+                  </td>
+                  <td>{item.task}</td>
+                  <td onClick={() => handleNoteClick(item.id)}>
+                    <div className="truncate max-w-[200px]">
+                      {item.note || "Click to add"}
                     </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td>{item.startDate}</td>
+                  <td>{item.dueDate}</td>
+                  <td>
+                    {statuses.find((status) => status.id === item.id)
+                      ?.status === "Done"
+                      ? currentDate.toDateString()
+                      : ""}
+                  </td>
+                  <td>
+                    <div className="dropdown">
+                      <div className="dropdown_select">
+                        <div className="dropdown_selected">
+                          <span>
+                            {statuses.find((status) => status.id === item.id)
+                              ?.status || "Select Action"}
+                          </span>
+                          <i className="icon">
+                            <IoChevronDown />
+                          </i>
+                        </div>
+                        <ul className="dropdown_list">
+                          {statusList.map((option) => (
+                            <li
+                              key={option}
+                              className="dropdown_item"
+                              onClick={() => {
+                                handleStatusChange(item.id, option);
+                                handleUpdateClick(item.id);
+                              }}
+                            >
+                              <span className="dropdown_text">{option}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
         {textboxVisible && (
@@ -183,6 +199,7 @@ function updateNotes() {
           </li>
         </ul>
       </nav>
+      <Users></Users>
     </div>
   );
 }
