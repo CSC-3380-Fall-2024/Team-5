@@ -60,9 +60,6 @@ function CategoryCreation() {
           </div>
         </div>
       </div>
-      <div>
-        <LogOut></LogOut>
-      </div>
     </>
   );
 }

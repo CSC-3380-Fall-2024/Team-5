@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../authContext";
 import { auth, database } from "../firebase/firebase";
 import { setDoc, doc } from "firebase/firestore";
-import { toast } from "react-toastify";
 
 function SignUp() {
   const [isShowed, setIsShowed] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
@@ -22,6 +22,7 @@ function SignUp() {
 
     try {
       setError("");
+      setLoading(true);
       await signup(email, password);
       if (signup) {
         await setDoc(doc(database, "teams", auth.currentUser.uid), {
@@ -32,19 +33,15 @@ function SignUp() {
         });
       }
       window.location.href = "/";
-      toast.success("Sign up Successfully!!", {
-        position: "top-center",
-      });
     } catch (error) {
       setError("Failed to create an account");
-      toast.error(error.message, {
-        position: "bottom-center",
-      });
     }
+    setLoading(false);
   }
 
   async function handleGoogleLogin() {
     try {
+      setLoading(true);
       await googleSignIn();
       if (googleSignIn) {
         await setDoc(doc(database, "teams", auth.currentUser.uid), {
@@ -53,14 +50,12 @@ function SignUp() {
           photo: auth.currentUser.photoURL,
           lastName: "",
         });
-        toast.success("User logged in succesfully", {
-          position: "top-center",
-        });
         window.location.href = "/";
       }
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   }
 
   return (
@@ -118,7 +113,9 @@ function SignUp() {
             </i>
           </div>
 
-          <button className="btnSubmit">Sign up</button>
+          <button disabled={loading} className="btnSubmit">
+            Sign up
+          </button>
           <p>
             Already have an account?<Link to="/signIn">Sign In</Link>
           </p>
