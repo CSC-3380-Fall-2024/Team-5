@@ -16,6 +16,7 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signup, googleSignIn } = useAuth();
+  const teamId = "Tl7Ph2s1udw5ceTihmDJ";
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -24,12 +25,15 @@ function SignUp() {
       setError("");
       await signup(email, password);
       if (signup) {
-        await setDoc(doc(database, "teams", auth.currentUser.uid), {
-          email: auth.currentUser.email,
-          firstName: firstName,
-          lastName: lastName,
-          password: password,
-        });
+        await setDoc(
+          doc(database, `teams/${teamId}/members/`, auth.currentUser.uid),
+          {
+            email: auth.currentUser.email,
+            firstName: firstName,
+            lastName: lastName,
+            password: password,
+          }
+        );
       }
       window.location.href = "/";
       toast.success("Sign up Successfully!!", {
@@ -47,12 +51,15 @@ function SignUp() {
     try {
       await googleSignIn();
       if (googleSignIn) {
-        await setDoc(doc(database, "teams", auth.currentUser.uid), {
-          email: auth.currentUser.email,
-          firstName: auth.currentUser.displayName,
-          photo: auth.currentUser.photoURL,
-          lastName: "",
-        });
+        await setDoc(
+          doc(database, `teams/${teamId}/members/`, auth.currentUser.uid),
+          {
+            email: auth.currentUser.email,
+            firstName: auth.currentUser.displayName,
+            photo: auth.currentUser.photoURL,
+            lastName: "",
+          }
+        );
         toast.success("User logged in succesfully", {
           position: "top-center",
         });
