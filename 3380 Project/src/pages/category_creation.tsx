@@ -52,6 +52,7 @@ function CategoryCreation() {
             {user && user.email}
           </div>
           <div className="categories-container">
+            <CategoryComponent onDelete={() => {}}/>
             {categories.length > 0 ? (
               categories.map((category) => category.element)
             ) : (
