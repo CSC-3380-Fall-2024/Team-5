@@ -1,0 +1,14 @@
+I1115 19:22:27.289348   82774 load.go:37] Reloading schema and connectors...
+I1115 19:22:27.304466   82774 control.go:45] [engine.Service /emulator/3380 Project 2c5a] UpdateSchema(): done sources: schema/schema.gql [1384B] 
+I1115 19:22:27.312581   82774 control.go:73] [engine.Service /emulator/3380 Project 2c5a] UpdateConnector(default): done sources: connector/queries.gql [1855B] connector/mutations.gql [1163B] 
+I1115 19:22:27.327991   82774 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "/Users/muhanadyennes/Documents/Documents - Muhanad’s MacBook Pro/Developer/Team-5/3380 Project/dataconnect-generated/js/default-connector"
+I1115 19:22:27.335011   82774 collector.go:107] schema extensions wrote into "/Users/muhanadyennes/Documents/Documents - Muhanad’s MacBook Pro/Developer/Team-5/3380 Project/dataconnect/.dataconnect/schema"
+Generated sources: prelude.gql [60423B] 
+I1115 19:22:27.336830   82774 collector.go:107] connector "default" javascriptSdk wrote into "/Users/muhanadyennes/Documents/Documents - Muhanad’s MacBook Pro/Developer/Team-5/3380 Project/dataconnect-generated/js/default-connector"
+Generated sources: index.d.ts [264B] esm/index.esm.js [185B] esm/package.json [17B] index.cjs.js [226B] package.json [623B] 
+I1115 19:22:27.339169   82774 installsdk.go:48] Package @firebasegen/default-connector is already installed. Skipping installation
+I1115 19:22:27.339244   82774 load.go:115] Finished reloading
+I1115 19:22:27.343521   82774 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:9399
+I1115 19:22:27.344456   82774 dev.go:95] Listening on address (HTTP + gRPC): [::1]:9399
+I1115 19:22:27.794878   82774 control.go:45] [engine.Service /emulator/3380 Project 01c9] UpdateSchema(): done sources: schema/schema.gql [1384B] 
+I1115 19:22:27.795177   82774 control.go:73] [engine.Service /emulator/3380 Project 01c9] UpdateConnector(default): done sources: connector/mutations.gql [1163B] connector/queries.gql [1855B] 

@@ -1,34 +1,35 @@
 import { database } from "./firebase";
-import { doc, setDoc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, deleteDoc, updateDoc, query, collection, where, addDoc } from "firebase/firestore";
 
 export async function createTask(
   teamId: string,
-  categoryid: string,
+  taskType: string,
   taskDescription: string
 ) {
-  const taskRef = doc(
+  const taskRef = collection(
     database,
-    `teams/${teamId}/categories/${categoryId}/tasks`
+    `teams/${teamId}/tasks`
   );
   try {
-    await setDoc(taskRef, {
+    const taskDoc = await addDoc(taskRef, {
       description: taskDescription,
+      category: taskType,
     });
 
-    console.log("task created with ID: ", taskRef.id);
+    console.log("task created with ID: ", taskDoc.id);
   } catch (error) {
     console.error("Error creating task: ", error);
+    return undefined;
   }
 }
 
 export async function deleteTask(
   teamId: string,
-  categoryid: string,
   taskId: string
 ) {
   const taskRef = doc(
     database,
-    `teams/${teamId}/categories/${categoryId}/tasks/${taskId}`
+    `teams/${teamId}/tasks/${taskId}`
   );
   try {
     await deleteDoc(taskRef);
@@ -41,13 +42,12 @@ export async function deleteTask(
 
 export async function updateTask(
   teamId: string,
-  categoryid: string,
   taskId: string,
   taskDescription: string
 ) {
   const taskRef = doc(
     database,
-    `teams/${teamId}/categories/${categoryId}/tasks/${taskId}`
+    `teams/${teamId}/tasks/${taskId}`
   );
   try {
     await updateDoc(taskRef, {
@@ -58,8 +58,3 @@ export async function updateTask(
     console.error("Error updating task: ", error);
   }
 }
-
-const teamId = "Tl7Ph2s1udw5ceTihmDJ";
-const categoryId = "to-do";
-const taskId = "rvYTZyNdZairBPAKWP60";
-const taskDescription = "I am testing this function...Did it work??";
