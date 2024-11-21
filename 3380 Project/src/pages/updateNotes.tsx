@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { data } from "../data.js";
 import "../CSS Files/updateNotes.css";
 import { IoChevronDown } from "react-icons/io5";
@@ -12,13 +12,38 @@ function updateNotes() {
   const teamId = "Tl7Ph2s1udw5ceTihmDJ";
   const { users } = useAuth();
   const [currentDate, setCurrentDate] = useState(new Date()); //useState update the current date
+  //useState to mamage table data
+  const [tableData, setTableData] = useState([]);
+  useEffect(() => {
+    // Process the user list and task data into table rows
+    const combinedData = users
+      .map((user, index) => {
+        // Match user with the task data based on userId (index in this case)
+        const taskData = data.filter((task) => task.id === index);
+        return taskData.map((task) => ({
+          id: task.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          date: task.date,
+          task: task.task,
+          note: task.note,
+          startDate: task.startDate,
+          dueDate: task.dueDate,
+          dateFinish: task.dateFinish,
+          action: task.action,
+        }));
+      })
+      .flat(); // Flatten the array because map() returns an array of arrays
+
+    setTableData(combinedData); // Update the table state with combined data
+  }, []); // Empty dependency array means this effect runs once when the component mounts
 
   const [currentPage, setCurrentPage] = useState(1); //useState update current page
   const recordsPerPage = 5;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = data.slice(firstIndex, lastIndex); //break down data for table showing
-  const npage = Math.ceil(data.length / recordsPerPage); //Calculating number of pages
+  const records = tableData.slice(firstIndex, lastIndex); //break down data for table showing
+  const npage = Math.ceil(tableData.length / recordsPerPage); //Calculating number of pages
   const numbers = [...Array(npage + 1).keys()].slice(1); // adding pages into a empty array
 
   const statusList = ["Start", "Working", "Stuck", "Done"]; //list of statuses for a task
@@ -28,15 +53,15 @@ function updateNotes() {
   const [currentIndex, setCurrentIndex] = useState(null);
 
   const handleNoteClick = (index) => {
-    setInputValue(data[index].note);
+    setInputValue(tableData[index].note);
     setCurrentIndex(index);
     setTextboxVisible(true);
   };
 
   const handleSave = () => {
-    const updatedData = [...users];
-    updatedData[currentIndex - 1].note = inputValue; // Update the note in the data
-    setInputValue(updatedData[currentIndex - 1].note); //Call the parent function to update data
+    const updatedData = [...tableData];
+    updatedData[currentIndex].note = inputValue; // Update the note in the data
+    setInputValue(updatedData[currentIndex].note); //Call the parent function to update data
     setTextboxVisible(false); // Hide the textbox after saving
     setCurrentIndex(null);
     updateDoc(doc(database, `teams/${teamId}/members/`, auth.currentUser.uid), {
@@ -53,7 +78,7 @@ function updateNotes() {
   const [statuses, setStatuses] = useState(
     data.map((item) => ({ id: item.id, status: "Select Action" }))
   );
-
+  console.log(tableData);
   //Click handler: when a dropdown item is clicked, update the state for that specific row using its id or index
   const handleStatusChange = (id, newStatus) => {
     setStatuses((prevStatuses) =>
@@ -84,7 +109,7 @@ function updateNotes() {
   function nextPage() {
     if (currentPage !== npage) setCurrentPage(currentPage + 1);
   }
-  console.log(users);
+
   return (
     <div className="update_note">
       <div className="w-full overflow-x-auto">
@@ -101,62 +126,56 @@ function updateNotes() {
             </tr>
           </thead>
           <tbody>
-            {records.map((item) => {
-              // Find the corresponding user for each record based on a matching property (e.g., userId)
-              const user = users.find((u) => u.id === item.id); // Assuming `userId` links records to users
-              return (
-                <tr key={item.id}>
-                  <td>
-                    {user
-                      ? `${user.firstName} ${user.lastName}`
-                      : "Unknown User"}
-                  </td>
-                  <td>{item.task}</td>
-                  <td onClick={() => handleNoteClick(item.id)}>
-                    <div className="truncate max-w-[200px]">
-                      {item.note || "Click to add"}
-                    </div>
-                  </td>
-                  <td>{item.startDate}</td>
-                  <td>{item.dueDate}</td>
-                  <td>
-                    {statuses.find((status) => status.id === item.id)
-                      ?.status === "Done"
-                      ? currentDate.toDateString()
-                      : ""}
-                  </td>
-                  <td>
-                    <div className="dropdown">
-                      <div className="dropdown_select">
-                        <div className="dropdown_selected">
-                          <span>
-                            {statuses.find((status) => status.id === item.id)
-                              ?.status || "Select Action"}
-                          </span>
-                          <i className="icon">
-                            <IoChevronDown />
-                          </i>
-                        </div>
-                        <ul className="dropdown_list">
-                          {statusList.map((option) => (
-                            <li
-                              key={option}
-                              className="dropdown_item"
-                              onClick={() => {
-                                handleStatusChange(item.id, option);
-                                handleUpdateClick(item.id);
-                              }}
-                            >
-                              <span className="dropdown_text">{option}</span>
-                            </li>
-                          ))}
-                        </ul>
+            {records.map((row, index) => (
+              <tr key={index}>
+                <td>
+                  {row.firstName} {row.lastName}
+                </td>
+                <td>{row.task}</td>
+                <td onClick={() => handleNoteClick(row.id)}>
+                  <div className="truncate max-w-[200px]">
+                    {row.note || "Click to add"}
+                  </div>
+                </td>
+                <td>{row.startDate}</td>
+                <td>{row.dueDate}</td>
+                <td>
+                  {statuses.find((status) => status.id === row.id)?.status ===
+                  "Done"
+                    ? currentDate.toDateString()
+                    : ""}
+                </td>
+                <td>
+                  <div className="dropdown">
+                    <div className="dropdown_select">
+                      <div className="dropdown_selected">
+                        <span>
+                          {statuses.find((status) => status.id === row.id)
+                            ?.status || "Select Action"}
+                        </span>
+                        <i className="icon">
+                          <IoChevronDown />
+                        </i>
                       </div>
+                      <ul className="dropdown_list">
+                        {statusList.map((option) => (
+                          <li
+                            key={option}
+                            className="dropdown_item"
+                            onClick={() => {
+                              handleStatusChange(row.id, option);
+                              handleUpdateClick(row.id);
+                            }}
+                          >
+                            <span className="dropdown_text">{option}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </td>
-                </tr>
-              );
-            })}
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         {textboxVisible && (
@@ -199,7 +218,6 @@ function updateNotes() {
           </li>
         </ul>
       </nav>
-      <Users></Users>
     </div>
   );
 }
