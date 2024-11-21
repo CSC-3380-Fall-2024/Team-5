@@ -1,15 +1,9 @@
 import { useEffect, useState } from "react";
-import { useEffect, useState } from "react";
+
 import { IoLogoGoogle, IoEyeOff, IoEye } from "react-icons/io5";
-import { Alert } from "react-bootstrap";
 import { Alert } from "react-bootstrap";
 import "../CSS Files/signUp.css";
 import { Link } from "react-router-dom";
-import { useAuth } from "../authContext";
-import { auth, database } from "../fireBase";
-import { setDoc, doc } from "firebase/firestore";
-import { toast } from "react-toastify";
-
 import { useAuth } from "../authContext";
 import { auth, database } from "../fireBase";
 import { setDoc, doc } from "firebase/firestore";
@@ -77,7 +71,6 @@ function SignUp() {
         <h2 className="heading">Create account</h2>
         <div>
           <button className="signup-social" onClick={handleGoogleLogin}>
-          <button className="signup-social" onClick={handleGoogleLogin}>
             <i className="icon">
               <IoLogoGoogle />
             </i>
@@ -91,44 +84,35 @@ function SignUp() {
         </p>
         <form onSubmit={handleSubmit}>
           <label>First Name</label>
-        <form onSubmit={handleSubmit}>
-          <label>First Name</label>
           <input
             type="text"
             className="signupInput"
             placeholder="Eg: John"
             onChange={(e) => setfirstName(e.target.value)}
-            onChange={(e) => setfirstName(e.target.value)}
             required
           />
-          <label>Last Name</label>
           <label>Last Name</label>
           <input
             type="text"
             className="signupInput"
             placeholder="Eg: Doe"
             onChange={(e) => setlastName(e.target.value)}
-            onChange={(e) => setlastName(e.target.value)}
             required
           />
-          <label>Email</label>
           <label>Email</label>
           <input
             type="text"
             className="signupInput"
             placeholder="Eg: johndoe@gmail.com"
             onChange={(e) => setEmail(e.target.value)}
-            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <div className="password">
-            <label>Password</label>
             <label>Password</label>
             <input
               type={isShowed === true ? "text" : "password"}
               className="signupInput"
               placeholder="Eg: *******"
-              onChange={(e) => setPassword(e.target.value)}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
