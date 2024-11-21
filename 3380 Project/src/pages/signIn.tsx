@@ -6,7 +6,7 @@ import { useAuth } from "../authContext";
 import { Alert } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { setDoc, doc } from "firebase/firestore";
-import { auth, database } from "../firebase/firebase";
+import { auth, db } from "../firebase/firebase";
 
 function SignIn() {
   const [isShowed, setIsShowed] = useState(false);
@@ -29,7 +29,7 @@ function SignIn() {
         position: "top-center",
       });
     } catch (error) {
-      navigate("/signUp");
+      setError("Failed to log in");
       toast.error(error.message, {
         position: "bottom-center",
       });
@@ -85,14 +85,14 @@ function SignIn() {
           <div className="password">
             <label htmlFor="passWord">Password</label>
             <input
-              type={isShowed === true ? "text" : "password"}
+              type={isShowed ? "text" : "password"}
               className="signupInput"
               placeholder="Eg: *******"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
             <i className="icon-eye" onClick={() => setIsShowed(!isShowed)}>
-              {isShowed === true ? <IoEye /> : <IoEyeOff />}
+              {isShowed ? <IoEye /> : <IoEyeOff />}
             </i>
           </div>
           <button className="btnSubmit">Sign in</button>
@@ -104,4 +104,4 @@ function SignIn() {
     </div>
   );
 }
-export default SignIn;
+export default SignIn
