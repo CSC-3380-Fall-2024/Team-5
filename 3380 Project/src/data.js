@@ -1,5 +1,15 @@
 export const data = [
   {
+    id: 0,
+    member: "Moemoe",
+    task: "Coding Payment function",
+    note: "",
+    startDate: "10/03/2024",
+    dueDate: "10/17/2024",
+    dateFinish: "",
+    action: "Working",
+  },
+  {
     id: 1,
     member: "Moe",
     task: "Coding Payment function",
