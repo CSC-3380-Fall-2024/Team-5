@@ -129,6 +129,7 @@ label {
   box-shadow: 0 5px 10px 0 rgba(130, 201, 30, 0.5);
   margin-top: 25px;
   margin-bottom: 25px;
+  margin-left: 0;
 }
 p {
   color: #373941;

@@ -26,7 +26,6 @@ function SignIn() {
       await login(email, password);
       navigate("/CategoryCreation");
     } catch (error) {
-
       navigate("/signUp");
     }
     setLoading(false);
@@ -38,7 +37,6 @@ function SignIn() {
       await googleSignIn();
       navigate("/CategoryCreation");
       if (googleSignIn) {
-
         await setDoc(
           doc(database, `teams/${teamId}/members/`, auth.currentUser.uid),
           {
@@ -48,10 +46,6 @@ function SignIn() {
             lastName: "",
           }
         );
-        toast.success("User logged in succesfully", {
-          position: "top-center",
-
-        });
       }
     } catch (error) {
       console.log(error);
