@@ -10,7 +10,7 @@ import SignUp from "./pages/signUp";
 import SignIn from "./pages/signIn";
 import SubjectPage from "./pages/SubjectPage";
 import SubjectTabs from "./components/SubjectTabs";
-import { AuthProvider, useAuth } from "./authContext";
+import { AuthProvider } from "./authContext";
 import ProtectedRoute from "./components/Protected";
 import LogOut from "./components/logOut";
 
@@ -46,14 +46,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="updateNotes"
-                element={
-                  <ProtectedRoute>
-                    <UpdateNotes />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path="updateNotes" element={<UpdateNotes />} />
               <Route
                 path="taskMap"
                 element={

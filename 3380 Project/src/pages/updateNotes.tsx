@@ -1,18 +1,49 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { data } from "../data.js";
 import "../CSS Files/updateNotes.css";
 import { IoChevronDown } from "react-icons/io5";
+import Users from "../components/User.jsx";
+import { useAuth } from "../authContext";
+import { auth, database } from "../firebase/firebase";
+import { updateDoc, doc } from "firebase/firestore";
 
 function updateNotes() {
+  const teamId = "Tl7Ph2s1udw5ceTihmDJ";
+  const { users } = useAuth();
   const [currentDate, setCurrentDate] = useState(new Date()); //useState update the current date
+  //useState to mamage table data
+  const [tableData, setTableData] = useState([]);
+  useEffect(() => {
+    // Process the user list and task data into table rows
+    const combinedData = users
+      .map((user, index) => {
+        // Match user with the task data based on userId (index in this case)
+        const taskData = data.filter((task) => task.id === index);
+        return taskData.map((task) => ({
+          id: task.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          date: task.date,
+          task: task.task,
+          note: task.note,
+          startDate: task.startDate,
+          dueDate: task.dueDate,
+          dateFinish: task.dateFinish,
+          action: task.action,
+        }));
+      })
+      .flat(); // Flatten the array because map() returns an array of arrays
+
+    setTableData(combinedData); // Update the table state with combined data
+  }, []); // Empty dependency array means this effect runs once when the component mounts
 
   const [currentPage, setCurrentPage] = useState(1); //useState update current page
   const recordsPerPage = 5;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = data.slice(firstIndex, lastIndex); //break down data for table showing
-  const npage = Math.ceil(data.length / recordsPerPage); //Calculating number of pages
+  const records = tableData.slice(firstIndex, lastIndex); //break down data for table showing
+  const npage = Math.ceil(tableData.length / recordsPerPage); //Calculating number of pages
   const numbers = [...Array(npage + 1).keys()].slice(1); // adding pages into a empty array
 
   const statusList = ["Start", "Working", "Stuck", "Done"]; //list of statuses for a task
@@ -22,30 +53,32 @@ function updateNotes() {
   const [currentIndex, setCurrentIndex] = useState(null);
 
   const handleNoteClick = (index) => {
-    setInputValue(data[index].note);
+    setInputValue(tableData[index].note);
     setCurrentIndex(index);
     setTextboxVisible(true);
   };
 
   const handleSave = () => {
-    const updatedData = [...data];
-    updatedData[currentIndex - 1].note = inputValue; // Update the note in the data
-    setInputValue(updatedData[currentIndex - 1].note); //Call the parent function to update data
+    const updatedData = [...tableData];
+    updatedData[currentIndex].note = inputValue; // Update the note in the data
+    setInputValue(updatedData[currentIndex].note); //Call the parent function to update data
     setTextboxVisible(false); // Hide the textbox after saving
     setCurrentIndex(null);
+    updateDoc(doc(database, `teams/${teamId}/members/`, auth.currentUser.uid), {
+      note: inputValue,
+    });
   };
 
   const handleClose = () => {
     setTextboxVisible(false); // Hide the textbox when closing
     setCurrentIndex(null); //Reset current index
   };
-
   //Use an array to store the selected status for each row
   //Example:[{id:1,status:"Start"},{id:2,status:"Done"}]
   const [statuses, setStatuses] = useState(
     data.map((item) => ({ id: item.id, status: "Select Action" }))
   );
-
+  console.log(tableData);
   //Click handler: when a dropdown item is clicked, update the state for that specific row using its id or index
   const handleStatusChange = (id, newStatus) => {
     setStatuses((prevStatuses) =>
@@ -93,19 +126,21 @@ function updateNotes() {
             </tr>
           </thead>
           <tbody>
-            {records.map((item) => (
-              <tr key={item.id}>
-                <td>{item.member}</td>
-                <td>{item.task}</td>
-                <td onClick={() => handleNoteClick(item.id)}>
+            {records.map((row, index) => (
+              <tr key={index}>
+                <td>
+                  {row.firstName} {row.lastName}
+                </td>
+                <td>{row.task}</td>
+                <td onClick={() => handleNoteClick(row.id)}>
                   <div className="truncate max-w-[200px]">
-                    {item.note || "Click to add"}
+                    {row.note || "Click to add"}
                   </div>
                 </td>
-                <td>{item.startDate}</td>
-                <td>{item.dueDate}</td>
+                <td>{row.startDate}</td>
+                <td>{row.dueDate}</td>
                 <td>
-                  {statuses.find((status) => status.id === item.id)?.status ===
+                  {statuses.find((status) => status.id === row.id)?.status ===
                   "Done"
                     ? currentDate.toDateString()
                     : ""}
@@ -115,7 +150,7 @@ function updateNotes() {
                     <div className="dropdown_select">
                       <div className="dropdown_selected">
                         <span>
-                          {statuses.find((status) => status.id === item.id)
+                          {statuses.find((status) => status.id === row.id)
                             ?.status || "Select Action"}
                         </span>
                         <i className="icon">
@@ -128,8 +163,8 @@ function updateNotes() {
                             key={option}
                             className="dropdown_item"
                             onClick={() => {
-                              handleStatusChange(item.id, option);
-                              handleUpdateClick(item.id);
+                              handleStatusChange(row.id, option);
+                              handleUpdateClick(row.id);
                             }}
                           >
                             <span className="dropdown_text">{option}</span>

@@ -15,6 +15,8 @@ function SignIn() {
   const [loading, setLoading] = useState(false);
   const { login, googleSignIn } = useAuth();
   const navigate = useNavigate();
+  const teamId = "Tl7Ph2s1udw5ceTihmDJ";
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -24,6 +26,7 @@ function SignIn() {
       await login(email, password);
       navigate("/CategoryCreation");
     } catch (error) {
+
       navigate("/signUp");
     }
     setLoading(false);
@@ -35,11 +38,19 @@ function SignIn() {
       await googleSignIn();
       navigate("/CategoryCreation");
       if (googleSignIn) {
-        await setDoc(doc(database, "teams", auth.currentUser.uid), {
-          email: auth.currentUser.email,
-          firstName: auth.currentUser.displayName,
-          photo: auth.currentUser.photoURL,
-          lastName: "",
+
+        await setDoc(
+          doc(database, `teams/${teamId}/members/`, auth.currentUser.uid),
+          {
+            email: auth.currentUser.email,
+            firstName: auth.currentUser.displayName,
+            photo: auth.currentUser.photoURL,
+            lastName: "",
+          }
+        );
+        toast.success("User logged in succesfully", {
+          position: "top-center",
+
         });
       }
     } catch (error) {
@@ -74,14 +85,14 @@ function SignIn() {
           <div className="password">
             <label htmlFor="passWord">Password</label>
             <input
-              type={isShowed === true ? "text" : "password"}
+              type={isShowed ? "text" : "password"}
               className="signupInput"
               placeholder="Eg: *******"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
             <i className="icon-eye" onClick={() => setIsShowed(!isShowed)}>
-              {isShowed === true ? <IoEye /> : <IoEyeOff />}
+              {isShowed ? <IoEye /> : <IoEyeOff />}
             </i>
           </div>
           <button disabled={loading} className="btnSubmit">
