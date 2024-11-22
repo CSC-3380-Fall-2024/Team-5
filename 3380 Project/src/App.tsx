@@ -45,8 +45,22 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="updateNotes" element={<UpdateNotes />} />
-              <Route path="taskMap" element={<TaskMap />} />
+              <Route
+                path="updateNotes"
+                element={
+                  <ProtectedRoute>
+                    <UpdateNotes />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="taskMap"
+                element={
+                  <ProtectedRoute>
+                    <TaskMap />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="signUp" element={<SignUp />} />
               <Route path="signIn" element={<SignIn />} />
               <Route

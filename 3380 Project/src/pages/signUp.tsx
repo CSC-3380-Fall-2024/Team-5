@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import { IoLogoGoogle, IoEyeOff, IoEye } from "react-icons/io5";
 import { Alert } from "react-bootstrap";
 import "../CSS Files/signUp.css";
@@ -17,7 +16,6 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signup, googleSignIn } = useAuth();
-  const teamId = "Tl7Ph2s1udw5ceTihmDJ";
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -55,9 +53,6 @@ function SignUp() {
           photo: auth.currentUser.photoURL,
           lastName: "",
         });
-        toast.success("User logged in succesfully", {
-          position: "top-center",
-        });
         window.location.href = "/";
       }
     } catch (error) {
@@ -77,7 +72,6 @@ function SignUp() {
             <span className="singup-social-text">Sign up with Google</span>
           </button>
         </div>
-        {error && <Alert variant="danger">{error}</Alert>}
         {error && <Alert variant="danger">{error}</Alert>}
         <p className="or">
           <span>Or</span>

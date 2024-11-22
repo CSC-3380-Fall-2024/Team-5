@@ -29,10 +29,7 @@ function SignIn() {
         position: "top-center",
       });
     } catch (error) {
-      setError("Failed to log in");
-      toast.error(error.message, {
-        position: "bottom-center",
-      });
+      navigate("/signUp");
     }
   }
 
@@ -41,15 +38,15 @@ function SignIn() {
       await googleSignIn();
       navigate("/CategoryCreation");
       if (googleSignIn) {
-        await setDoc(doc(database, "teams", auth.currentUser.uid), {
-          email: auth.currentUser.email,
-          firstName: auth.currentUser.displayName,
-          photo: auth.currentUser.photoURL,
-          lastName: "",
-        });
-        toast.success("User logged in succesfully", {
-          position: "top-center",
-        });
+        await setDoc(
+          doc(database, `teams/${teamId}/members/`, auth.currentUser.uid),
+          {
+            email: auth.currentUser.email,
+            firstName: auth.currentUser.displayName,
+            photo: auth.currentUser.photoURL,
+            lastName: "",
+          }
+        );
       }
     } catch (error) {
       console.log(error);
