@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics"; //"https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -18,7 +18,6 @@ const firebaseConfig = {
   measurementId: "G-V95SLHVBBE",
 };
 
-
 // Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
@@ -26,6 +25,5 @@ const app = initializeApp(firebaseConfig);
 //Authentication
 export const auth = getAuth(app);
 export const database = getFirestore(app);
-connectFirestoreEmulator(database, '127.0.0.1', 8080)
 export default app;
 const analytics = getAnalytics(app);
