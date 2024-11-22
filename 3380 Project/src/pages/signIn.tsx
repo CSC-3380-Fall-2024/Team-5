@@ -4,7 +4,6 @@ import "../CSS Files/signUp.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../authContext";
 import { Alert } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { setDoc, doc } from "firebase/firestore";
 import { auth, database } from "../firebase/firebase";
 
@@ -13,6 +12,7 @@ function SignIn() {
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const { login, googleSignIn } = useAuth();
   const navigate = useNavigate();
   const teamId = "Tl7Ph2s1udw5ceTihmDJ";
@@ -22,25 +22,23 @@ function SignIn() {
 
     try {
       setError("");
-
+      setLoading(true);
       await login(email, password);
       navigate("/CategoryCreation");
-      toast.success("Sign in Successfully!!", {
-        position: "top-center",
-      });
     } catch (error) {
-      setError("Failed to log in");
-      toast.error(error.message, {
-        position: "bottom-center",
-      });
+
+      navigate("/signUp");
     }
+    setLoading(false);
   }
 
   async function handleGoogleLogin() {
     try {
+      setLoading(true);
       await googleSignIn();
       navigate("/CategoryCreation");
       if (googleSignIn) {
+
         await setDoc(
           doc(database, `teams/${teamId}/members/`, auth.currentUser.uid),
           {
@@ -52,11 +50,13 @@ function SignIn() {
         );
         toast.success("User logged in succesfully", {
           position: "top-center",
+
         });
       }
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   }
   return (
     <div className="container">
@@ -95,7 +95,9 @@ function SignIn() {
               {isShowed ? <IoEye /> : <IoEyeOff />}
             </i>
           </div>
-          <button className="btnSubmit">Sign in</button>
+          <button disabled={loading} className="btnSubmit">
+            Sign in
+          </button>
           <p>
             Do not have an account yet?<Link to="/signUp">Sign Up</Link>
           </p>

@@ -12,13 +12,17 @@ import SubjectPage from "./pages/SubjectPage";
 import SubjectTabs from "./components/SubjectTabs";
 import { AuthProvider } from "./authContext";
 import ProtectedRoute from "./components/Protected";
+import LogOut from "./components/logOut";
 
 function App() {
   //const { getContacts } = useAuth();
   return (
     <Router>
       <div className="grid-container">
-        <Header />
+        <AuthProvider>
+          <Header />
+        </AuthProvider>
+
         <Sidebar />
         <SubjectTabs />
 
