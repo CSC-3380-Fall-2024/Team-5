@@ -7,6 +7,14 @@ import RemoteSelection from "./pages/remoteSelection";
 import UpdateNotes from "./pages/updateNotes";
 import TaskMap from "./pages/taskMap";
 function App() {
+  const userData = 
+  [
+   { 
+     user: "LeBron",
+     task: "Task 1",
+     image: "../src/assets/Default_pfp.svg.png",
+   }
+  ];
   return (
     <Router>
       <div className="grid-container">
@@ -15,6 +23,7 @@ function App() {
         <main className="main-container">
           <Routes>
             <Route path="/" element={<CategoryCreation />} />
+            
             <Route path="remoteSelection" element={<RemoteSelection />} />
             <Route path="updateNotes" element={<UpdateNotes />} />
             <Route path="taskMap" element={<TaskMap />} />
