@@ -38,11 +38,6 @@ function Sidebar() {
             <GrTree className="icon" /> Task Map
           </Link>
         </li>
-        <li className="sidebar-list-item">
-          <Link to="/signUp">
-            <GrTree className="icon" /> Sign up
-          </Link>
-        </li>
       </ul>
     </aside>
   );
