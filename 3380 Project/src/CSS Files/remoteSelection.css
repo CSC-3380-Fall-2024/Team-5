@@ -1,5 +1,36 @@
 /* Tasks */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+.user
+{
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 1 5px;
+  size: 25%;
+  max-width: 25%;
+  height: auto;
+  border-radius: 50%;
+
+}
+img:hover{
+  box-shadow: 0px 0px 5px 0px #000000;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px 0px #000000;
+}
+
+body{
+  min-height: 800px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-content: center;
+  
+  
+}
 .task-container
 {
     min-height: 125px;
@@ -7,6 +38,9 @@
     text-align: center;
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
+    gap: 10px;
+    align-items: center;
     box-sizing: border-box;
     background-color: #576e92;
     border-radius: 10px;
@@ -16,6 +50,7 @@
     min-width: 250px;
     max-width: 300px;
     
+    
 }
 .task-button
 {
@@ -23,24 +58,23 @@
     width: 50px;
     font-size: 20px;
     background-color: white;
-    position: relative;
-    top: 50px;
-    left: 170px;
-    bottom: -80px;
+    display: flex;
+    justify-content: center;
     margin: -5px;
     border-radius: 25;
+
 
 }
 .task-icon
 {
     margin-top: -4px;
-    position: center;
+    position: relative;
     font-size: 30px;
     
 }
 .second-icon
 {
-   position: center;
+   display: inline-flex;
 
 }
 .task-button:hover {
