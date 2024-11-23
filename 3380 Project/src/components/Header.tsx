@@ -1,7 +1,11 @@
-import React from "react";
+import LogOut from "./logOut";
 
 function Header() {
-  return <header className="header"></header>;
+  return (
+    <header className="header">
+      <LogOut></LogOut>
+    </header>
+  );
 }
 
 export default Header;
