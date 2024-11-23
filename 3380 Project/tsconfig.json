@@ -5,10 +5,10 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+  "target": "ESNext",
   },
   "exclude": ["**/*.remoteSelection.tsx"],
   "module": "esnext",
-  "target": "ESNext",
   "moduleResolution": "Node"
 }
