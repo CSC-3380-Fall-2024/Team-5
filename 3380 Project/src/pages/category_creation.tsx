@@ -1,9 +1,13 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import CategoryComponent from "../components/CategoryComponent";
 import "../CSS Files/CategoryComponent.css";
 import { IoIosAdd } from "react-icons/io";
+import { useAuth } from "../authContext";
+import LogOut from "../components/logOut";
 
 function CategoryCreation() {
+  const { user } = useAuth();
+  console.log(user);
   const [categories, setCategories] = useState<
     Array<{ id: number; element: JSX.Element }> //usState updates wih an array that has an id and element
   >([]);
@@ -33,27 +37,30 @@ function CategoryCreation() {
   };
 
   return (
-    <div className="main-container">
-      <div className="categories-wrapper">
-        <div className="create-button-container">
-          <button
-            type="button"
-            className="create-button"
-            onClick={createCategory}
-          >
-            <IoIosAdd className="icon" />
-            Create
-          </button>
-        </div>
-        <div className="categories-container">
-          {categories.length > 0 ? (
-            categories.map((category) => category.element)
-          ) : (
-            <p className="no-categories">Nothing to Display</p>
-          )}
+    <>
+      <div className="main-container">
+        <div className="categories-wrapper">
+          <div className="create-button-container">
+            <button
+              type="button"
+              className="create-button"
+              onClick={createCategory}
+            >
+              <IoIosAdd className="icon" />
+              Create
+            </button>
+            {user && user.email}
+          </div>
+          <div className="categories-container">
+            {categories.length > 0 ? (
+              categories.map((category) => category.element)
+            ) : (
+              <p className="no-categories">Nothing to Display</p>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
