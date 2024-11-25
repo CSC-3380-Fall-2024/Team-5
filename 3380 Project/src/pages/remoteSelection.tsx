@@ -26,19 +26,12 @@ const handleClick = () => {
     <div className="main-container">
       <div className="categories-wrapper">
 
-       <div className="task-container">
-        {dummyTask.length === 0 ? (<p  className="no-categories">No Tasks</p>) : (dummyTask)
-        } 
-          {isActive &&  (<p className="user">{dummyUser}</p>)  }
-         
-         
-         
-        <button
-          className="task-button" 
-          onClick={handleClick}
-          
-          >
-           {isActive ? (<FcCheckmark className="task-icon"/>) : (<CheckIcon className="second-icon"/>)}
+          <button className="task-button" onClick={handleClick}>
+            {isActive ? (
+              <FcCheckmark className="task-icon" />
+            ) : (
+              <IoCheckmarkOutline className="second-icon" />
+            )}
           </button>
             
           </div>
