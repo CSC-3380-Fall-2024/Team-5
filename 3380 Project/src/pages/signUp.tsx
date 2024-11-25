@@ -16,6 +16,7 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signup, googleSignIn } = useAuth();
+  const teamId = "Tl7Ph2s1udw5ceTihmDJ";
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -25,12 +26,15 @@ function SignUp() {
       setLoading(true);
       await signup(email, password);
       if (signup) {
-        await setDoc(doc(database, "teams", auth.currentUser.uid), {
-          email: auth.currentUser.email,
-          firstName: firstName,
-          lastName: lastName,
-          password: password,
-        });
+        await setDoc(
+          doc(database, `teams/${teamId}/members/`, auth.currentUser.uid),
+          {
+            email: auth.currentUser.email,
+            firstName: firstName,
+            lastName: lastName,
+            password: password,
+          }
+        );
       }
       window.location.href = "/";
     } catch (error) {
@@ -44,12 +48,15 @@ function SignUp() {
       setLoading(true);
       await googleSignIn();
       if (googleSignIn) {
-        await setDoc(doc(database, "teams", auth.currentUser.uid), {
-          email: auth.currentUser.email,
-          firstName: auth.currentUser.displayName,
-          photo: auth.currentUser.photoURL,
-          lastName: "",
-        });
+        await setDoc(
+          doc(database, `teams/${teamId}/members/`, auth.currentUser.uid),
+          {
+            email: auth.currentUser.email,
+            firstName: auth.currentUser.displayName,
+            photo: auth.currentUser.photoURL,
+            lastName: "",
+          }
+        );
         window.location.href = "/";
       }
     } catch (error) {

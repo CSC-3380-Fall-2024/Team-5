@@ -1,6 +1,11 @@
 {
   "type": "module",
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.7",
+    "@mui/material": "^6.1.7",
+    "3380-project": "file:",
     "bootstrap": "^5.3.3",
     "firebase": "^11.0.1",
     "prop-types": "^15.8.1",
