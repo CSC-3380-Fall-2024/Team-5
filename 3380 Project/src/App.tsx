@@ -13,6 +13,13 @@ import { AuthProvider } from "./authContext";
 import ProtectedRoute from "./components/Protected";
 
 function App() {
+  const userData = [
+    {
+      user: "LeBron",
+      task: "Task 1",
+      image: "../src/assets/Default_pfp.svg.png",
+    },
+  ];
   return (
     <Router>
       <AuthProvider>
