@@ -6,13 +6,6 @@
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
-    flex-direction: row;
-    gap: 0px;
-
-}
-
-body {
-    background-color: #1D2634;
 }
 
 .cat-container {
@@ -26,7 +19,6 @@ body {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    gap: 10px;
 }
 
 .category-column {
@@ -35,6 +27,7 @@ body {
     padding: 20px;
     margin: 10px;
     width: calc(33.333% - 20px);
+    height: 20px;
     min-width: 250px;
     max-width: 300px;
     display: flex;
@@ -91,9 +84,6 @@ body {
     flex: 1 1 10px;
     margin: 5px;
     list-style: disc;
-    ::placeholder {
-        color: #475b79;
-    }
 }
 
 .cat-item input {
@@ -149,7 +139,8 @@ body {
 .add-task-icon {
     position: relative;
     bottom: 0px;
-    right: 14px;
+    right: 6px;
+    font-size: 20px;
 }
 
 .add-task-icon:hover {
@@ -216,5 +207,3 @@ body {
     }
 }
 /* MISCELLANEOUS END */
-
-

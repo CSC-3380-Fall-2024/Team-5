@@ -1,9 +1,11 @@
 import { useRef, useState } from "react";
-import CategoryComponent from "../components/CategoryComponent";
+import CategoryComponent from "../components/Category Creation/CategoryComponent";
 import "../CSS Files/CategoryComponent.css";
 import { IoIosAdd } from "react-icons/io";
 import { useAuth } from "../authContext";
-import LogOut from "../components/logOut";
+import ToDoColumn from "../components/Category Creation/ToDoColumn";
+import InProgressColumn from "../components/Category Creation/InProgressColumn";
+import DoneColumn from "../components/Category Creation/DoneColumn";
 
 function CategoryCreation() {
   const { user } = useAuth();
@@ -52,10 +54,13 @@ function CategoryCreation() {
             {user && user.email}
           </div>
           <div className="categories-container">
+            <ToDoColumn />
+            <InProgressColumn onDelete={() => console.log("")} />
+            <DoneColumn onDelete={() => console.log("")} />
             {categories.length > 0 ? (
               categories.map((category) => category.element)
             ) : (
-              <p className="no-categories">Nothing to Display</p>
+              <p></p>
             )}
           </div>
         </div>
