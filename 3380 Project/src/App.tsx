@@ -1,4 +1,5 @@
 import "./CSS Files/App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CategoryCreation from "./pages/category_creation";
 import RemoteSelection from "./pages/remoteSelection";
