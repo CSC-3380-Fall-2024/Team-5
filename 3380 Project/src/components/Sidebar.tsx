@@ -5,6 +5,8 @@ import { FaRegNoteSticky } from "react-icons/fa6";
 import { GrTree } from "react-icons/gr";
 import { Link } from "react-router-dom";
 
+
+
 function Sidebar() {
   return (
     <aside id="sidebar">
@@ -17,7 +19,7 @@ function Sidebar() {
 
       <ul className="sidebar-list">
         <li className="sidebar-list-item">
-          <Link to="/">
+          <Link to="/categoryCreation">
             <IoCreateOutline className="icon" /> Category Creation
           </Link>
         </li>
