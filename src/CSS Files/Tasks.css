@@ -1,0 +1,123 @@
+.task-board {
+    display: flex;
+    flex-direction: row; 
+    height: 100vh; 
+    width: 100%;
+    position: relative;
+    padding-top: 10px; 
+  }
+  
+  .task-sidebar {
+    width: 100%; 
+    height: 223px; 
+    background-color: #ffffffe8;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-x: auto; 
+    overflow-y: hidden; 
+    display: flex;
+    flex-direction: row; 
+    justify-content: flex-start;
+    position: absolute; 
+    bottom: 0;
+    margin-left: -20px;
+    margin-bottom: -20px;
+    border-top: 5px solid #ccc; 
+}
+
+.shapes-container {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap; 
+    justify-content: center;
+    align-items: center; 
+}
+
+
+.task-input {
+    margin-bottom: 20px;
+}
+
+.task-input input,
+.task-input textarea {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.shape-selection {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    flex-direction: row;
+}
+
+
+.task-shape {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 0px;
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    transition: background-color 0.3s;
+    margin-top: -10px;
+    margin-left: -10px;
+}
+
+.task-shape:hover {
+    background-color: #0056b3;
+}
+
+.task-box-shape {
+    padding: 10px;
+}
+
+.task-map {
+  margin-left: -20px;
+  margin-top: -145px; 
+  margin-bottom: 200px;
+  padding-right: 90px; 
+  background-color: #f0f0f0;
+  overflow: auto;
+  position: relative;
+  flex-grow: 1; 
+}
+
+.task-map .task-shape {
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #007BFF;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.task-map h3 {
+    margin: 0;
+    color: #333;
+}
+
+.task-map p {
+    margin: 5px 0 0;
+    color: #666;
+}
+
+
+
+.resize-handle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background-color: blue;
+    cursor: nwse-resize;
+}
+
+
+
+
