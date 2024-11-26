@@ -79,9 +79,11 @@ const SubjectPage: React.FC = () => {
       email: !memberDetails.email.trim(),
       inviteCode: !memberDetails.inviteCode.trim(),
     };
+
     if (newErrors.fullName || newErrors.email || newErrors.inviteCode)
       return setErrors((prev) => ({ ...prev, ...newErrors }));
-    closeModal();
+
+    setIsModalOpen(false);
   };
 
   const handleCopyCode = () => {
@@ -248,7 +250,7 @@ const SubjectPage: React.FC = () => {
                 </div>
                 <button
                   className="next-button"
-                  onClick={handleNextClickForInvite}
+                  onClick={closeModal} //changed from 'handleNextClickForInvite' to 'closeModal' because 'done' button wasn't closing modal
                 >
                   Done
                 </button>
