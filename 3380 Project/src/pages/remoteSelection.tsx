@@ -33,7 +33,7 @@ function remoteSelection() {
             {isActive ? (
               <FcCheckmark className="task-icon" />
             ) : (
-              <CheckIcon className="second-icon" />
+              <IoCheckmarkOutline className="second-icon" />
             )}
           </button>
         </div>
