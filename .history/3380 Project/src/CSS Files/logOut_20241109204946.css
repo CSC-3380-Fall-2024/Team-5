@@ -1,0 +1,9 @@
+.button-container{
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    width: 90px;
+    background-color: #263043;
+    padding: 40px 0;
+    
+}

@@ -1,0 +1,7 @@
+.button-container{
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    top: 0;
+    
+}

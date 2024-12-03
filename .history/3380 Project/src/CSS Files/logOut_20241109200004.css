@@ -1,0 +1,17 @@
+.border{
+    position: relative;
+    top: -660px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-size: 20px;
+    border: 10px;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    cursor: pointer
+}
+.border:hover {
+    background-color: #0056b3;
+}
