@@ -10,7 +10,7 @@ import { database } from "../fireBase 2.js";
 function remoteSelection() {
   const dummyTask = ["Task 1"]; //placeholder
   const dummyUser = ["Jordan"]; //placeholder
-  const taskRef = database.ref('leads');
+  const taskRef = database.ref('tasks');
   taskRef.on('child_added', function(snapshot) {
     snapshot.forEach(function(childSnapshot){
        const childData = childSnapshot.val();

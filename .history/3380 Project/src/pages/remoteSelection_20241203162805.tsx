@@ -6,11 +6,10 @@ import Tabs from "../components/TabCreation.tsx";
 import portrait from "../assets/Default_pfp.png";
 import { FcCheckmark } from "react-icons/fc";
 import { IoCheckmarkOutline } from "react-icons/io5";
-import { database } from "../fireBase 2.js";
+import {}
 function remoteSelection() {
   const dummyTask = ["Task 1"]; //placeholder
   const dummyUser = ["Jordan"]; //placeholder
-  const taskRef = database.ref('leads');
   taskRef.on('child_added', function(snapshot) {
     snapshot.forEach(function(childSnapshot){
        const childData = childSnapshot.val();
