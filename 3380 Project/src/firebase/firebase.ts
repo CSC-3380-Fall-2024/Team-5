@@ -25,5 +25,6 @@ const app = initializeApp(firebaseConfig);
 //Authentication
 export const auth = getAuth(app);
 export const database = getFirestore(app);
+connectFirestoreEmulator(database, 'localhost', 8081)
 export default app;
 const analytics = getAnalytics(app);

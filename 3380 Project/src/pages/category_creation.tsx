@@ -1,41 +1,176 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CategoryComponent from "../components/Category Creation/CategoryComponent";
 import "../CSS Files/CategoryComponent.css";
 import { IoIosAdd } from "react-icons/io";
-import { useAuth } from "../authContext";
 import ToDoColumn from "../components/Category Creation/ToDoColumn";
 import InProgressColumn from "../components/Category Creation/InProgressColumn";
 import DoneColumn from "../components/Category Creation/DoneColumn";
+import {
+  createBackendCategory,
+  deleteBackendCategory,
+  fetchBackendCategories,
+} from "../firebase/CategoryCreationCrudFunctions";
+import { Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
-function CategoryCreation() {
-  const { user } = useAuth();
-  console.log(user);
-  const [categories, setCategories] = useState<
-    Array<{ id: number; element: JSX.Element }> //usState updates wih an array that has an id and element
-  >([]);
-  const nextId = useRef(0); //useRef generates a unique id for each category
+// Category type to define category structure
+export interface Category {
+  id: string;
+  title: string;
+  element: JSX.Element;
+}
+const teamId = "B18T0M2TwLngVuq8opN1";
 
-  //function to spawn a category component
-  const createCategory = () => {
-    const id = nextId.current++; //generates a unique id for the category
-    setCategories((prevCategories) => [
-      //updates the categories array with the new category and renders it
-      ...prevCategories,
-      {
-        id,
+// Custom hook so global states can be used throughout code
+export const useCategory = () => {
+  const [showTitleModal, setShowTitleModal] = useState(false);
+  const [category, setCategory] = useState<Category[]>([]);
+
+  // Fetches Categories from the backend and loads them into local state
+  const loadCategories = async () => {
+    try {
+      const fetchedCategories = await fetchBackendCategories(teamId);
+      const updatedCategories = fetchedCategories.map((cat) => ({
+        id: cat.id,
+        title: cat.title,
         element: (
-          <CategoryComponent key={id} onDelete={() => deleteCategory(id)} />
+          <CategoryComponent // Creates a component filled with new data
+            key={cat.id}
+            categoryId={cat.id}
+            onDelete={() => deleteCategory(cat.id)}
+            title={cat.title}
+          />
         ),
-      },
-    ]);
+      }));
+      setCategory(updatedCategories); // Sets new Category type into local state
+    } catch (error) {
+      console.error("error loading tasks: ", error);
+    }
+  };
+  // deletes entire category and it's contents both from the backend and local state
+  const deleteCategory = async (catId: string) => {
+    await deleteBackendCategory(teamId, catId);
+    setCategory(
+      (prevCategories) =>
+        prevCategories.filter((category) => category.id !== catId) // filters out the category with the matching id and discards old state
+    );
   };
 
-  //function to delete a category component
-  const deleteCategory = (id: number) => {
-    setCategories(
-      (prevCategories) =>
-        prevCategories.filter((category) => category.id !== id) //filters out the category with the matching id
-    );
+  // UseEffect hook to fetch new data when something is changed
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  // outputs needed states to be used elsewhere
+  return {
+    category,
+    setCategory,
+    showTitleModal,
+    setShowTitleModal,
+    loadCategories,
+    deleteCategory,
+  };
+};
+
+// Modal to add a title when a custom category is created
+export function AddTitleModal({
+  show,
+  onHide,
+  onAddTitle,
+}: {
+  show: boolean;
+  onHide: () => void;
+  onAddTitle: (title: string) => void;
+}) {
+  const [input, setInput] = useState("");
+
+  // keeps input field blank after submit and hides modal
+  const handleAddTitle = () => {
+    if (input.trim()) {
+      onAddTitle(input.trim());
+      setInput("");
+      onHide();
+    }
+  };
+
+  // Function for 'enter' key functionality
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleAddTitle();
+    }
+  };
+
+  return (
+    <Modal
+      show={show}
+      onHide={onHide}
+      aria-labelledby="custom-modal"
+      centered
+      style={{ display: "flex", margin: "auto" }}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Add a Title to Your Category
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="modal-input-container">
+          <input
+            className="title-input"
+            onChange={(e) => setInput(e.target.value)} // saves input in local state
+            value={input}
+            placeholder="Title"
+            onKeyDown={(e) => handleKeyPress(e)}
+          />
+          <Button
+            variant="outline-primary"
+            onClick={handleAddTitle}
+            style={{
+              position: "relative",
+              width: "10vh",
+              height: "3.5vh",
+              justifyContent: "center",
+            }}
+          >
+            <h6>Create</h6>
+          </Button>
+        </div>
+      </Modal.Body>
+    </Modal>
+  );
+}
+
+const CategoryCreation: React.FC = () => {
+
+  // defines needed states from custom hook
+  const {
+    category,
+    setCategory,
+    showTitleModal,
+    setShowTitleModal,
+    deleteCategory,
+  } = useCategory();
+
+  // renders a custom category and stores title data in the backend
+  const addCategory = async (title: string) => {
+    try {
+      const catRef = await createBackendCategory(teamId, title);
+      const newCategory: Category = {
+        id: catRef.id,
+        title: title,
+        element: (
+          <CategoryComponent
+            key={catRef.id}
+            categoryId={catRef.id}
+            onDelete={() => deleteCategory(catRef.id)}
+            title={title}
+          />
+        ),
+      };
+      setCategory((prevCategories) => [...prevCategories, newCategory]);
+    } catch (error) {
+      console.error("error adding category: ", error);
+    }
   };
 
   return (
@@ -46,30 +181,31 @@ function CategoryCreation() {
             <button
               type="button"
               className="create-button"
-              onClick={createCategory}
+              onClick={() => setShowTitleModal(true)}
             >
               <IoIosAdd className="icon" />
-              Create
+              <h4 style={{ display: "contents" }}>Create</h4>
             </button>
-            {user && user.email}
           </div>
           <div className="categories-container">
-            <ToDoColumn />
-            <InProgressColumn onDelete={() => console.log("")} />
-            <DoneColumn onDelete={() => console.log("")} />
-            {categories.length > 0 ? (
-              categories.map((category) => category.element)
-            ) : (
-              <p></p>
-            )}
+            {/* Renders three main categories */}
+            <ToDoColumn /> 
+            <InProgressColumn />
+            <DoneColumn />
+            {category.map((cat) => cat.element)}
           </div>
         </div>
+        <AddTitleModal
+          show={showTitleModal}
+          onHide={() => setShowTitleModal(false)}
+          onAddTitle={(title) => addCategory(title)}
+        />
       </div>
       <div>
         <LogOut></LogOut>
       </div>
     </>
   );
-}
+};
 
 export default CategoryCreation;
