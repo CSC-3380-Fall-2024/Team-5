@@ -1,6 +1,5 @@
 import "./CSS Files/App.css";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CategoryCreation from "./pages/category_creation";
 import RemoteSelection from "./pages/remoteSelection";
@@ -9,69 +8,79 @@ import TaskMap from "./pages/taskMap";
 import SignUp from "./pages/signUp";
 import SignIn from "./pages/signIn";
 import SubjectPage from "./pages/SubjectPage";
-import SubjectTabs from "./components/SubjectTabs";
-import { AuthProvider, useAuth } from "./authContext";
+import BaseLayout from "./components/BaseLayout";
+
+import { AuthProvider } from "./authContext";
 import ProtectedRoute from "./components/Protected";
-import LogOut from "./components/logOut";
 
 function App() {
-  //const { getContacts } = useAuth();
+  const userData = [
+    {
+      user: "LeBron",
+      task: "Task 1",
+      image: "../src/assets/Default_pfp.svg.png",
+    },
+  ];
   return (
     <Router>
-      <div className="grid-container">
-        <AuthProvider>
-          <Header />
-        </AuthProvider>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<SignIn />} />
+          <Route path="signUp" element={<SignUp />} />
+          <Route path="signIn" element={<SignIn />} />
 
-        <Sidebar />
-        <SubjectTabs />
-
-        <main className="main-container">
-          <AuthProvider>
-            <Routes>
-              <Route path="/" element={<SignIn />} />
-              <Route
-                path="CategoryCreation"
-                element={
-                  <ProtectedRoute>
-                    <CategoryCreation />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="remoteSelection"
-                element={
-                  <ProtectedRoute>
-                    <RemoteSelection />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="updateNotes"
-                element={
-                  <ProtectedRoute>
-                    <UpdateNotes />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="taskMap"
-                element={
-                  <ProtectedRoute>
-                    <TaskMap />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="signUp" element={<SignUp />} />
-              <Route path="signIn" element={<SignIn />} />
-              <Route
-                path="subject/:subjectName"
-                element={<SubjectPage />}
-              />{" "}
-            </Routes>
-          </AuthProvider>
-        </main>
-      </div>
+          <Route
+            path="categoryCreation"
+            element={
+              <ProtectedRoute>
+                <BaseLayout>
+                  <CategoryCreation />
+                </BaseLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/remoteSelection"
+            element={
+              <ProtectedRoute>
+                <BaseLayout>
+                  <RemoteSelection />
+                </BaseLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="updateNotes"
+            element={
+              <ProtectedRoute>
+                <BaseLayout>
+                  <UpdateNotes />
+                </BaseLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="taskMap"
+            element={
+              <ProtectedRoute>
+                <BaseLayout>
+                  <TaskMap />
+                </BaseLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="subject/:subjectName"
+            element={
+              <ProtectedRoute>
+                <BaseLayout>
+                  <SubjectPage />
+                </BaseLayout>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </AuthProvider>
     </Router>
   );
 }

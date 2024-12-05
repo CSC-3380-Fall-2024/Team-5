@@ -97,8 +97,10 @@ table {
 }
 
 .dropdown_select {
-  width: 100%; 
-  padding: 5px 8px; 
+  width: 100%;
+  padding: 5px 8px;
+  width: 100%;
+  padding: 5px 8px;
   background-color: #1a33c2;
   border-radius: 4px;
   color: white;
@@ -179,6 +181,7 @@ table {
 .pagination {
   background-color: #f3f4f6;
   padding: 8px 0px;
+  width: 96%;
   width: 96%;
   font-weight: 500;
   font-size: 16px;

@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../authContext";
 import { Alert } from "react-bootstrap";
 import { setDoc, doc } from "firebase/firestore";
-import { auth, database } from "../fireBase";
+import { auth, database } from "../firebase/firebase";
 
 function SignIn() {
   const [isShowed, setIsShowed] = useState(false);
@@ -15,6 +15,8 @@ function SignIn() {
   const [loading, setLoading] = useState(false);
   const { login, googleSignIn } = useAuth();
   const navigate = useNavigate();
+  const teamId = "Tl7Ph2s1udw5ceTihmDJ";
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -35,12 +37,15 @@ function SignIn() {
       await googleSignIn();
       navigate("/CategoryCreation");
       if (googleSignIn) {
-        await setDoc(doc(database, "teams", auth.currentUser.uid), {
-          email: auth.currentUser.email,
-          firstName: auth.currentUser.displayName,
-          photo: auth.currentUser.photoURL,
-          lastName: "",
-        });
+        await setDoc(
+          doc(database, `teams/${teamId}/members/`, auth.currentUser.uid),
+          {
+            email: auth.currentUser.email,
+            firstName: auth.currentUser.displayName,
+            photo: auth.currentUser.photoURL,
+            lastName: "",
+          }
+        );
       }
     } catch (error) {
       console.log(error);
@@ -74,14 +79,14 @@ function SignIn() {
           <div className="password">
             <label htmlFor="passWord">Password</label>
             <input
-              type={isShowed === true ? "text" : "password"}
+              type={isShowed ? "text" : "password"}
               className="signupInput"
               placeholder="Eg: *******"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
             <i className="icon-eye" onClick={() => setIsShowed(!isShowed)}>
-              {isShowed === true ? <IoEye /> : <IoEyeOff />}
+              {isShowed ? <IoEye /> : <IoEyeOff />}
             </i>
           </div>
           <button disabled={loading} className="btnSubmit">

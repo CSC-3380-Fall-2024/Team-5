@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth, database } from "./fireBase";
+import { auth, database } from "./firebase/firebase";
+import { collection, getDocs } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -16,14 +17,21 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState({});
   const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState({});
+
+  const [users, setUsers] = useState([]);
+  const teamId = "Tl7Ph2s1udw5ceTihmDJ";
+
 
   function signup(email, password) {
+    console.log(auth.currentUser);
     return createUserWithEmailAndPassword(auth, email, password);
   }
 
   function login(email, password) {
+    console.log(auth.currentUser);
+    console.log("Email", email);
     return signInWithEmailAndPassword(auth, email, password);
   }
 
@@ -35,6 +43,21 @@ export function AuthProvider({ children }) {
   function logout() {
     return signOut(auth);
   }
+  async function getUsers() {
+    const querySnapshot = await getDocs(
+      collection(database, `teams/${teamId}/members/`)
+    );
+
+    const users = querySnapshot.docs.map((doc) => ({
+      key: doc.id,
+      ...doc.data(),
+    }));
+    setUsers(users);
+  }
+  useEffect(() => {
+    getUsers();
+    setLoading(false);
+  }, [loading]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -52,6 +75,7 @@ export function AuthProvider({ children }) {
     googleSignIn,
     signup,
     logout,
+    users,
   };
 
   return (
