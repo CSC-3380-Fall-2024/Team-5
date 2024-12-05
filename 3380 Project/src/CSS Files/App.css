@@ -63,11 +63,6 @@ body {
   display: none;
 }
 
-.sidebar-brand {
-  margin-top: 15px;
-  font-size: 20px;
-  font-weight: 700;
-}
 
 .sidebar-list {
   padding: 0;
@@ -92,11 +87,6 @@ body {
 .sidebar-responsive {
   display: inline !important;
   position: absolute;
-  /*
-      we want the z-index of the sidebar higher so that
-      the charts are not showing over the sidebar 
-      on small screens
-    */
   z-index: 12 !important;
 }
 
@@ -144,18 +134,7 @@ body {
 }
 /* Small <= 768px */
 
-@media screen and (max-width: 768px) {
-  .main-cards {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    margin-bottom: 0;
-  }
 
-  .charts {
-    grid-template-columns: 1fr;
-    margin-top: 30px;
-  }
-}
 
 /* Extra Small <= 576px */
 
