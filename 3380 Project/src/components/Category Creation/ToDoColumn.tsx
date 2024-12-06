@@ -1,11 +1,26 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosAdd } from "react-icons/io";
 import { TiDelete } from "react-icons/ti";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import {
+  createBackendTask,
+  deleteBackendTask,
+  fetchTasks,
+  updateBackendTask,
+} from "../../firebase/CategoryCreationCrudFunctions";
 import "../../CSS Files/Columns.css";
 
+// defines a structure for each task created
+export interface Task {
+  id: string;
+  description: string;
+  category: string;
+}
+const teamId = "B18T0M2TwLngVuq8opN1";
+
+// Modal to accept new tasks
 export function AddTaskModal({
   show,
   onHide,
@@ -13,7 +28,7 @@ export function AddTaskModal({
 }: {
   show: boolean;
   onHide: () => void;
-  onAddTask: (task: string) => void;
+  onAddTask: (taskDescription: string) => void;
 }) {
   const [input, setInput] = useState("");
 
@@ -24,9 +39,10 @@ export function AddTaskModal({
       onHide();
     }
   };
+  
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleAddTask(); //adds a new task when user presses enter
+      handleAddTask();
     }
   };
 
@@ -69,23 +85,67 @@ export function AddTaskModal({
 }
 
 const ToDoColumn: React.FC = () => {
-  const [tasks, setTasks] = useState<string[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [showModal, setShowModal] = useState(false);
 
-  const addTask = (task: string) => {
-    if (task.trim()) {
-      setTasks([...tasks, task]);
+  // renders respective tasks into the ToDoColumn
+  useEffect(() => {
+    const loadTasks = async () => {
+      try {
+        const fetchedTasks = await fetchTasks("to-do", teamId);
+        console.log("tasks fetched: ", fetchedTasks);
+        setTasks(fetchedTasks || []);
+      } catch (error) {
+        console.error("error loading tasks: ", error);
+      }
+    };
+    loadTasks();
+  }, []);
+
+  // adds task to backend and locally
+  const addTask = async (taskDescription: string) => {
+    try {
+      const taskRef = await createBackendTask(teamId, taskDescription, "to-do");
+      const newTask: Task = {
+        id: taskRef.id,
+        description: taskDescription,
+        category: "to-do",
+      };
+      setTasks((prevTasks) => [...prevTasks, newTask]);
+    } catch (error) {
+      console.error("Error creating task:", error);
     }
   };
 
-  const deleteTask = (index: number) => {
-    const updatedTasks = tasks.filter((_, i) => i !== index);
-    setTasks(updatedTasks);
+  // deletes task in backend and locally
+  const deleteTask = async (taskId: string) => {
+    try {
+      await deleteBackendTask(teamId, taskId);
+      const updatedTasks = tasks.filter((task) => task.id !== taskId);
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
   };
 
-  const updateTask = (index: number, newTask: string) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index] = newTask;
+  // updates task in backend and locally
+  const updateTask = async (taskDescription: string, taskId: string) => {
+    try {
+      await updateBackendTask(teamId, taskId, taskDescription, "to-do");
+      const updatedTasks = tasks.map((task) =>
+        task.id === taskId ? { ...task, description: taskDescription } : task
+      );
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
+  };
+
+  // updates and renders local state of task description while being edited/changed
+  const handleChange = (newDescription: string, taskId: string) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, description: newDescription } : task
+    );
     setTasks(updatedTasks);
   };
 
@@ -96,16 +156,17 @@ const ToDoColumn: React.FC = () => {
       </div>
       <div className="cat-body">
         <ul className="cat-list">
-          {tasks.map((task, index) => (
-            <li key={index} className="cat-item" style={{}}>
+          {tasks.map((task) => (
+            <li key={task.id} className="cat-item">
               <input
                 type="text"
-                value={task}
-                onChange={(e) => updateTask(index, e.target.value)}
+                value={task.description}
+                onBlur={(e) => updateTask(e.target.value, task.id)}
+                onChange={(e) => handleChange(e.target.value, task.id)}
               />
               <TiDelete
                 className="delete-task-icon"
-                onClick={() => deleteTask(index)}
+                onClick={() => deleteTask(task.id)}
               />
             </li>
           ))}

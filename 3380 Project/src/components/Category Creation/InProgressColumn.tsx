@@ -1,32 +1,80 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { IoIosAdd } from "react-icons/io";
 import { TiDelete } from "react-icons/ti";
-import {AddTaskModal, } from './ToDoColumn';
+import { AddTaskModal, Task } from "./ToDoColumn";
+import {
+  createBackendTask,
+  deleteBackendTask,
+  fetchTasks,
+  updateBackendTask,
+} from "../../firebase/CategoryCreationCrudFunctions";
 
-interface ToDoComponentProps {
-  onDelete: () => void;
-}
-
-const ToDoColumn: React.FC<ToDoComponentProps> = ({ onDelete }) => {
-  const [tasks, setTasks] = useState<string[]>([]);
+const InProgressColumn: React.FC = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [showModal, setShowModal] = useState(false);
 
-   const addTask = (task: string) => {
-    if (task.trim()) {
-      setTasks([...tasks, task]);
+  // loads respective tasks into local state of 'inProgress' column
+  useEffect(() => {
+    const loadTasks = async () => {
+      try {
+        const fetchedTasks = await fetchTasks("in-progress", teamId);
+        console.log("tasks fetched: ", fetchedTasks);
+        setTasks(fetchedTasks || []);
+      } catch (error) {
+        console.error("error loading tasks: ", error);
+      }
+    };
+    loadTasks();
+  }, []);
+
+  const teamId = "B18T0M2TwLngVuq8opN1";
+
+  const addTask = async (taskDescription: string) => {
+    try {
+      const taskRef = await createBackendTask(
+        teamId,
+        taskDescription,
+        "in-progress"
+      );
+      const newTask: Task = {
+        id: taskRef.id,
+        description: taskDescription,
+        category: "in-progress",
+      };
+      setTasks((prevTasks) => [...prevTasks, newTask]);
+    } catch (error) {
+      console.error("Error creating task:", error);
     }
   };
 
-  const deleteTask = (index: number) => {
-    const updatedTasks = tasks.filter((_, i) => i !== index);
-    setTasks(updatedTasks);
+  const deleteTask = async (taskId: string) => {
+    try {
+      await deleteBackendTask(teamId, taskId);
+      const updatedTasks = tasks.filter((task) => task.id !== taskId);
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
   };
 
-  const updateTask = (index: number, newTask: string) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index] = newTask;
+  const updateTask = async (taskDescription: string, taskId: string) => {
+    try {
+      await updateBackendTask(teamId, taskId, taskDescription, "in-progress");
+      const updatedTasks = tasks.map((task) =>
+        task.id === taskId ? { ...task, description: taskDescription } : task
+      );
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
+  };
+
+  const handleChange = (newDescription: string, taskId: string) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, description: newDescription } : task
+    );
     setTasks(updatedTasks);
   };
 
@@ -41,22 +89,31 @@ const ToDoColumn: React.FC<ToDoComponentProps> = ({ onDelete }) => {
             <li key={index} className="cat-item" style={{}}>
               <input
                 type="text"
-                value={task}
-                onChange={(e) => updateTask(index, e.target.value)}
+                value={task.description}
+                onChange={(e) => handleChange(e.target.value, task.id)}
+                onBlur={(e) => updateTask(e.target.value, task.id)}
               />
               <TiDelete
                 className="delete-task-icon"
-                onClick={() => deleteTask(index)}
+                onClick={() => deleteTask(task.id)}
               />
             </li>
           ))}
         </ul>
-        <div style={{fontSize: "12px", display: "flex", alignContent: "center", position: "relative", left: "20px"}}>
+        <div
+          style={{
+            fontSize: "12px",
+            display: "flex",
+            alignContent: "center",
+            position: "relative",
+            left: "20px",
+          }}
+        >
           <IoIosAdd
             className="add-task-icon"
             onClick={() => setShowModal(true)}
           />
-          <h6 style={{color: "#8b97ad"}}>Add item</h6>
+          <h6 style={{ color: "#8b97ad" }}>Add item</h6>
         </div>
 
         <AddTaskModal
@@ -69,4 +126,4 @@ const ToDoColumn: React.FC<ToDoComponentProps> = ({ onDelete }) => {
   );
 };
 
-export default ToDoColumn;
+export default InProgressColumn;
