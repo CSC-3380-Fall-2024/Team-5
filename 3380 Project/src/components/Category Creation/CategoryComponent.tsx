@@ -32,12 +32,16 @@ function CategoryComponent({
   onDelete,
 }: CategoryComponentProps) {
   const [tasks, setTasks] = useState<Task[]>([]); //inherits 'Task' type from 'ToDoColumn' and saves tasks locally for custom categories
-  const [showTaskModal, setShowTaskModal] = useState(false); // Used to enable Add Task modal 
+  const [showTaskModal, setShowTaskModal] = useState(false); // Used to enable Add Task modal
   const [editTitle, setEditTitle] = useState(title); // Used to update the title in real time by storing value in local state
-  const { category, setCategory, showTitleModal, setShowTitleModal } = // defines needed states
-    useCategory();
+  const {
+    category,
+    setCategory,
+    showTitleModal,
+    setShowTitleModal,
+  } = useCategory(); // defines needed states
 
-// fetches task data from backend and loads it into local state to render
+  // fetches task data from backend and loads it into local state to render
   useEffect(() => {
     const loadTasks = async () => {
       try {
@@ -106,7 +110,7 @@ function CategoryComponent({
       console.error("Error updating task:", error);
     }
   };
-  
+
   // Updates title from the backend and at it's respective category locally
   const updateCategoryTitle = async (newTitle: string, catId: string) => {
     try {
@@ -140,8 +144,9 @@ function CategoryComponent({
           <input
             value={editTitle} // set to local state
             onChange={(e) => handleTitleChange(e.target.value)} // updates local state while editing
-            onBlur={(e) =>
-              updateBackendCategoryTitle(teamId, categoryId, e.target.value) //updates on the backend when user clicks away, indicating they are done editng
+            onBlur={
+              (e) =>
+                updateBackendCategoryTitle(teamId, categoryId, e.target.value) //updates on the backend when user clicks away, indicating they are done editng
             }
           />
         </label>
