@@ -2,8 +2,9 @@
 import { useEffect, useState } from "react";
 import { data } from "../data.js";
 import "../CSS Files/updateNotes.css";
-import { IoChevronDown } from "react-icons/io5";
-import Users from "../components/User.jsx";
+import TableRow from "../components/tableRow";
+import Pagination from "../components/Pagination";
+import InputModal from "../components/inputModal";
 import { useAuth } from "../authContext";
 import { auth, database } from "../firebase/firebase";
 import { updateDoc, doc } from "firebase/firestore";
@@ -14,6 +15,7 @@ function updateNotes() {
   const [currentDate, setCurrentDate] = useState(new Date()); //useState update the current date
   //useState to mamage table data
   const [tableData, setTableData] = useState([]);
+
   useEffect(() => {
     // Process the user list and task data into table rows
     const combinedData = users
@@ -25,18 +27,18 @@ function updateNotes() {
           firstName: user.firstName,
           lastName: user.lastName,
           date: task.date,
-          task: task.task,
-          note: task.note,
+          task: user.task,
+          note: user.note,
           startDate: task.startDate,
           dueDate: task.dueDate,
           dateFinish: task.dateFinish,
-          action: task.action,
+          action: user.action,
         }));
       })
       .flat(); // Flatten the array because map() returns an array of arrays
 
     setTableData(combinedData); // Update the table state with combined data
-  }, []); // Empty dependency array means this effect runs once when the component mounts
+  }, [users]);
 
   const [currentPage, setCurrentPage] = useState(1); //useState update current page
   const recordsPerPage = 5;
@@ -44,28 +46,33 @@ function updateNotes() {
   const firstIndex = lastIndex - recordsPerPage;
   const records = tableData.slice(firstIndex, lastIndex); //break down data for table showing
   const npage = Math.ceil(tableData.length / recordsPerPage); //Calculating number of pages
-  const numbers = [...Array(npage + 1).keys()].slice(1); // adding pages into a empty array
-
-  const statusList = ["Start", "Working", "Stuck", "Done"]; //list of statuses for a task
 
   const [textboxVisible, setTextboxVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [inputType, setInputType] = useState(""); // Track which field ("Task" or "Note")
   const [currentIndex, setCurrentIndex] = useState(null);
 
-  const handleNoteClick = (index) => {
-    setInputValue(tableData[index].note);
+  //Use an array to store the selected status for each row
+  //Example:[{id:1,status:"Start"},{id:2,status:"Done"}]
+  const [statuses, setStatuses] = useState(
+    data.map((item) => ({ id: item.id, status: "Select Action" }))
+  );
+
+  const handleFieldClick = (index, field) => {
+    setInputValue(tableData[index][field]);
     setCurrentIndex(index);
+    setInputType(field); // Set the field type (either "task" or "note")
     setTextboxVisible(true);
   };
 
-  const handleSave = () => {
+  const handleSave = (value) => {
     const updatedData = [...tableData];
-    updatedData[currentIndex].note = inputValue; // Update the note in the data
-    setInputValue(updatedData[currentIndex].note); //Call the parent function to update data
+    updatedData[currentIndex][inputType] = value; // Update the correct field (task or note)
+    setInputValue(updatedData[currentIndex][inputType]); //Call the parent function to update data
     setTextboxVisible(false); // Hide the textbox after saving
     setCurrentIndex(null);
     updateDoc(doc(database, `teams/${teamId}/members/`, auth.currentUser.uid), {
-      note: inputValue,
+      [inputType]: value, //Update the corresponding field in the database
     });
   };
 
@@ -73,11 +80,7 @@ function updateNotes() {
     setTextboxVisible(false); // Hide the textbox when closing
     setCurrentIndex(null); //Reset current index
   };
-  //Use an array to store the selected status for each row
-  //Example:[{id:1,status:"Start"},{id:2,status:"Done"}]
-  const [statuses, setStatuses] = useState(
-    data.map((item) => ({ id: item.id, status: "Select Action" }))
-  );
+
   console.log(tableData);
   //Click handler: when a dropdown item is clicked, update the state for that specific row using its id or index
   const handleStatusChange = (id, newStatus) => {
@@ -86,6 +89,10 @@ function updateNotes() {
         item.id === id ? { ...item, status: newStatus } : item
       )
     );
+    // Save the updated action to Firestore for the correct user
+    updateDoc(doc(database, `teams/${teamId}/members/`, auth.currentUser.uid), {
+      action: newStatus, // Save the selected action to Firestore
+    }).catch((error) => console.error("Error updating action:", error));
   };
 
   //Click handler: when status is Done, set Date Finish is the current date
@@ -127,97 +134,36 @@ function updateNotes() {
           </thead>
           <tbody>
             {records.map((row, index) => (
-              <tr key={index}>
-                <td>
-                  {row.firstName} {row.lastName}
-                </td>
-                <td>{row.task}</td>
-                <td onClick={() => handleNoteClick(row.id)}>
-                  <div className="truncate max-w-[200px]">
-                    {row.note || "Click to add"}
-                  </div>
-                </td>
-                <td>{row.startDate}</td>
-                <td>{row.dueDate}</td>
-                <td>
-                  {statuses.find((status) => status.id === row.id)?.status ===
-                  "Done"
-                    ? currentDate.toDateString()
-                    : ""}
-                </td>
-                <td>
-                  <div className="dropdown">
-                    <div className="dropdown_select">
-                      <div className="dropdown_selected">
-                        <span>
-                          {statuses.find((status) => status.id === row.id)
-                            ?.status || "Select Action"}
-                        </span>
-                        <i className="icon">
-                          <IoChevronDown />
-                        </i>
-                      </div>
-                      <ul className="dropdown_list">
-                        {statusList.map((option) => (
-                          <li
-                            key={option}
-                            className="dropdown_item"
-                            onClick={() => {
-                              handleStatusChange(row.id, option);
-                              handleUpdateClick(row.id);
-                            }}
-                          >
-                            <span className="dropdown_text">{option}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+              <TableRow
+                key={index}
+                row={row}
+                handleNoteClick={(id) => handleFieldClick(id, "note")}
+                handleTaskClick={(id) => handleFieldClick(id, "task")} // Add this line to handle task click
+                statuses={statuses}
+                handleStatusChange={handleStatusChange}
+                handleUpdateClick={handleUpdateClick}
+                currentDate={currentDate}
+              />
             ))}
           </tbody>
         </table>
         {textboxVisible && (
-          <div className="modal-overlay">
-            <div className="popup-form">
-              <textarea
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                autoFocus
-              />
-              <button onClick={handleSave}>Save</button>
-              <button onClick={handleClose}>Close</button>
-            </div>
-          </div>
+          <InputModal
+            label={inputType === "task" ? "Task" : "Note"} // Display the correct label based on the field type
+            value={inputValue}
+            setValue={setInputValue}
+            onSave={handleSave}
+            onClose={handleClose}
+          />
         )}
       </div>
-      <nav>
-        <ul className="pagination">
-          <li className="page-item">
-            <a href="#" className="page-link" onClick={prePage}>
-              Prev
-            </a>
-          </li>
-          {numbers.map((n, i) => (
-            <li
-              key={i}
-              className={`page-item ${
-                currentPage === n ? "active" : "inactive"
-              }`}
-            >
-              <a href="#" className="page-link" onClick={() => changePage(n)}>
-                {n}
-              </a>
-            </li>
-          ))}
-          <li>
-            <a href="#" className="page-link" onClick={nextPage}>
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <Pagination
+        currentPage={currentPage}
+        npage={npage}
+        changePage={changePage}
+        prePage={prePage}
+        nextPage={nextPage}
+      />
     </div>
   );
 }
