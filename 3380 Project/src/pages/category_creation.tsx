@@ -59,6 +59,7 @@ export const useCategory = () => {
   // UseEffect hook to fetch new data when something is changed
   useEffect(() => {
     loadCategories();
+    
   }, []);
 
   // outputs needed states to be used elsewhere
