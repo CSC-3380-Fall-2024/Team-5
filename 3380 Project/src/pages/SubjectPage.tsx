@@ -248,10 +248,7 @@ const SubjectPage: React.FC = () => {
                     {copyButtonText}
                   </button>
                 </div>
-                <button
-                  className="next-button"
-                  onClick={closeModal} //changed from 'handleNextClickForInvite' to 'closeModal' because 'done' button wasn't closing modal
-                >
+                <button className="next-button" onClick={closeModal}>
                   Done
                 </button>
               </div>
