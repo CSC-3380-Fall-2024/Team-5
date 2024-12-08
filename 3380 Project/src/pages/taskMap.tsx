@@ -1,12 +1,16 @@
-import React from 'react'
-import TaskBoard from '../components/TaskBoard'
+import React from "react";
+import TaskBoard from "../components/TaskBoard"; // Ensure the path is correct
 
-function taskMap() {
+const TaskMap = () => {
   return (
     <div>
-      Task Map
-    </div>
-  )
-}
+      <h1>Task Map</h1>
+      <p>Manage your tasks here!</p>
 
-export default taskMap
+      {/* TaskBoard Component */}
+      <TaskBoard />
+    </div>
+  );
+};
+
+export default TaskMap;
