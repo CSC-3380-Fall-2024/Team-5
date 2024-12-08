@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
   import TaskInput from './TaskInput';
   import TaskBox from './TaskBox';
-  import './Tasks.css';
+  import '../CSS Files/Tasks.css';
   
   const TaskBoard = () => {
       const [tasks, setTasks] = useState([]);
