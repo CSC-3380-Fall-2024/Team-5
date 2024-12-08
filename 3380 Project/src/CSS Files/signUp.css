@@ -30,18 +30,19 @@
   font-weight: bold;
   font-family: "Poppins", sans-serif;
   border: 0;
-  background-color: #4c6ff4;
+  background-color: #83c7f1;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   outline: none;
-  box-shadow: 0 5px 10px 0 rgba(76, 111, 244, 0.5);
+  box-shadow: 0 5px 10px 0 #6da4c7;
 }
 
 .signup-social-text {
   display: block;
   margin: 0 auto;
+  color: #4e4e4e;
 }
 .icon {
   margin: 5px;
@@ -75,7 +76,7 @@
 }
 label {
   font-size: 16px;
-  color: #63676b;
+  color: #4e4e4e;
   font-weight: 500;
   margin-bottom: 10px;
   display: inline-block;
@@ -94,11 +95,11 @@ label {
   margin-bottom: 15px;
 }
 .signupInput::-webkit-input-placeholder {
-  color: #b4bac0;
+  color: #b1b1b1;
   font-weight: 500;
 }
 .signupInput::-moz-input-placeholder {
-  color: #b4bac0;
+  color: #b1b1b1;
   font-weight: 500;
 }
 .password {
@@ -107,14 +108,14 @@ label {
     position: absolute;
     top: 45px;
     right: 10px;
-    color: #373941;
+    color: #4e4e4e;
     cursor: pointer;
   }
 }
 
 .btnSubmit {
   padding: 15px;
-  color: white;
+  color: #ffffff;
   font-size: 18px;
   text-align: center;
   border: 0;
@@ -122,20 +123,20 @@ label {
   display: inline-block;
   width: 100%;
   border-radius: 14px;
-  background-color: rgb(130, 201, 30);
+  background-color: #83c7f1;
   font-family: "Poppins", sans-serif;
   cursor: pointer;
   font-weight: 600;
-  box-shadow: 0 5px 10px 0 rgba(130, 201, 30, 0.5);
+  box-shadow: 0 5px 10px 0 #73afd4;
   margin-top: 25px;
   margin-bottom: 25px;
   margin-left: 0;
 }
 p {
-  color: #373941;
+  color: #4e4e4e;
 }
 a {
   margin-left: 5px;
-  color: black;
+  color: #4e4e4e;
   cursor: pointer;
 }

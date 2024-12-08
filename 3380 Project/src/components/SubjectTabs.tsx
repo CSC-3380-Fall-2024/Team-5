@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../CSS Files/SubjectTabs.css";
+import { IoIosAdd } from "react-icons/io";
 
 const SubjectTabs: React.FC = () => {
   const [tabs, setTabs] = useState<string[]>([]);
@@ -71,9 +72,12 @@ const SubjectTabs: React.FC = () => {
             type="text"
             value={newTabName}
             onChange={(e) => setNewTabName(e.target.value)} // update input value on change
-            placeholder="Name Subject"
+            placeholder="Subject Name"
           />
-          <button onClick={addTab}>Add</button>
+          <IoIosAdd className={'add-tab-icon ${showInput ? "active" : ""}'}
+          onClick={addTab} //applies an active class when the input is active
+          />
+          </IoIosAdd>
         </div>
       )}
     </div>
