@@ -141,7 +141,6 @@ export function AddTitleModal({
 }
 
 const CategoryCreation: React.FC = () => {
-
   // defines needed states from custom hook
   const {
     category,
@@ -189,7 +188,7 @@ const CategoryCreation: React.FC = () => {
           </div>
           <div className="categories-container">
             {/* Renders three main categories */}
-            <ToDoColumn /> 
+            <ToDoColumn />
             <InProgressColumn />
             <DoneColumn />
             {category.map((cat) => cat.element)}
