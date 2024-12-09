@@ -152,10 +152,11 @@ const SubjectTabs: React.FC = () => {
             onChange={(e) => setNewTabName(e.target.value)} // update input value on change
             placeholder="Subject Name"
           />
-          <IoIosAdd className={'add-tab-icon ${showInput ? "active" : ""}'}
-          onClick={addTab} //applies an active class when the input is active
+          <IoIosAdd
+            className={'add-tab-icon ${showInput ? "active" : ""}'}
+            onClick={addTab} //applies an active class when the input is active
           />
-          </IoIosAdd>
+          <IoIosAdd />
         </div>
       )}
     </div>
