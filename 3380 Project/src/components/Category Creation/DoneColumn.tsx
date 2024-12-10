@@ -108,7 +108,7 @@ const DoneColumn: React.FC = () => {
             className="add-task-icon"
             onClick={() => setShowModal(true)}
           />
-          <h6 style={{ color: "#8b97ad" }}>Add item</h6>
+          <h6 style={{ color: "#b1b1b1" }}>Add item</h6>
         </div>
 
         <AddTaskModal

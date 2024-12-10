@@ -23,8 +23,10 @@ textarea {
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    height: 100vh;
+    height: 100%;
+    width: 100%;
     position: relative;
+    max-width: 100vw;
 }
 
 .task-boxes{
@@ -32,21 +34,23 @@ textarea {
     height: calc(100vh - 100px);
     position: relative;
     overflow: hidden;
-    border: 1px spolid #ccc;
+    border: 1px spolid #ededee;
     background-color: #ffffff;
 }
 
 .task-box{
-    border: 1px solid #007BFF;
+    border: 1px solid #43699b;
     border-radius: 5px;
     padding: 5px;
-    width: 120px;
-    height: 80px;
+    width: calc(33.33% - 20px);
+    max-width:300px;
+    height: auto;
+    min-height: 80px;
     margin: 10px 0;
     cursor: grab;
     text-align: center;
     transition: transform 0.1s;
-    background-color: #f9f9f9;
+    background-color: #ededee;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
     transition: background-color 0.3s;
 }
@@ -57,12 +61,12 @@ textarea {
 
 .task-box h3 {
     margin: 0;
-    color: #333;
+    color: #4e4e4e;
 }
 
 .task-box p {
     margin: 5px 0 0;
-    color: #666;
+    color: #4e4e4e;
 }
 
 .delete-button{
@@ -71,13 +75,13 @@ textarea {
     right: 5px;
     background: none;
     border: none;
-    color:#666;
+    color:#4e4e4e;
     font-size: 16px;
     cursor: pointer;
     padding: 0;
     margin: 0;
-    width: 20px;
-    height: 20px;
+    width: 1px;
+    height: 1px;
 }
 
 .delete-button:hover{
@@ -85,8 +89,8 @@ textarea {
 }
 
 button {
-    background-color: #007BFF;
-    color: white;
+    background-color: #83c7f1;
+    color: #4e4e4e;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
@@ -95,5 +99,5 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #6ea8cc;
 }
