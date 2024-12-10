@@ -137,7 +137,7 @@ const TaskMap: React.FC = () => {
       }}
     >
       {/*sidebar*/}
-      <button className="sidebar-toggle" onClick={toggleSidebar}>
+      <button className="sidebar-toggle-button" onClick={toggleSidebar}>
         {sidebarVisible ? "Hide Sidebar" : "Show Sidebar"}
       </button>
 
