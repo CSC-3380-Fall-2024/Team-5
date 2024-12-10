@@ -9,7 +9,7 @@
 }
 
 .cat-container {
-    background-color: #576e92;
+    background-color: #43699b;
     border-radius: 10px;
     padding: 20px;
     margin: 10px;
@@ -22,7 +22,7 @@
 }
 
 .category-column {
-    background-color: #576e92;
+    background-color: #43699b;
     border-radius: 10px;
     padding: 20px;
     margin: 10px;
@@ -56,7 +56,7 @@
 
 .cat-header input {
     font-size: 25px;
-    color: white;
+    color: #4e4e4e;
     border: 0px;
     padding: 0px;
     background-color: transparent;
@@ -66,7 +66,7 @@
 
 .cat-title {
     font-size: 25px;
-    color: white;
+    color: #4e4e4e;
     border: 0px;
     padding: 0px;
     background-color: transparent;
@@ -89,7 +89,7 @@
 .cat-item input {
     background-color: transparent;
     font-size: 16px;
-    color: white;
+    color: #b1b1b1;
     border: 0px;
     outline: none;
     width: 100%;
@@ -117,14 +117,14 @@
     border-radius: 8px;
     font-size: 20px;
     border: 10px;
-    background-color: #007bff;
-    color: #ffffff;
+    background-color: #83c7f1;
+    color: #4e4e4e;
     padding: 10px 20px;
     cursor: pointer;
 }
 
 .create-button:hover {
-    background-color: #0056b3;
+    background-color: #6fa6c9;
 }
 
 /* Create Button END*/
@@ -183,7 +183,7 @@
     color: #ffffff;
     height: 50vh;
     width: 75vw;
-    color: #495e7d;
+    color: #000000;
 }
 
 
