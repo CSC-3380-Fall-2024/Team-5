@@ -29,7 +29,7 @@ function Sidebar() {
 
       <ul className="sidebar-list">
         <li className="sidebar-list-item">
-          <Link to="/">
+          <Link to="/categorycreation">
             <IoCreateOutline className="icon" /> {isCollapsed ? "" : "Category Creation"}
           </Link>
         </li>
