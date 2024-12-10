@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import RemoteSelectionComponent from "../components/RemoteSelectionComponent.tsx"
+import RemoteSelectionComponent from '../components/RemoteSelectionComponent.tsx';
 import "../CSS Files/remoteSelection.css";
 import "../CSS Files/CategoryComponent.css";
 import "../CSS Files/App.css";
@@ -34,7 +34,6 @@ function remoteSelection() {
         ),
       }));
       setTask(updatedTasks); //LOAD THE TASKS I BEG OF YOU
-      
     } catch (error) {
       console.error("error loading tasks: ", error);
     }
