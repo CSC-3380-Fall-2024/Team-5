@@ -181,7 +181,7 @@ function CategoryComponent({
             className="add-task-icon"
             onClick={() => setShowTaskModal(true)}
           />
-          <h6 style={{ color: "#8b97ad" }}>Add item</h6>
+          <h6 style={{ color: "#b1b1b1" }}>Add item</h6>
         </div>
         <AddTitleModal
           show={showTitleModal}

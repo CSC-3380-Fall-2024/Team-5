@@ -12,11 +12,11 @@
 }
 
 body {
-    background-color: #1D2634;
+    background-color: #ffffff;
 }
 
 .cat-container {
-    background-color: #576e92;
+    background-color: #43699b;
     border-radius: 10px;
     padding: 20px;
     margin: 10px;
@@ -27,10 +27,11 @@ body {
     flex-direction: column;
     box-sizing: border-box;
     gap: 10px;
+    position: relative;
 }
 
 .category-column {
-    background-color: #576e92;
+    background-color: #43699b;
     border-radius: 10px;
     padding: 20px;
     margin: 10px;
@@ -46,14 +47,14 @@ body {
 .cat-header {
     display: inline-flex;
     border: 0px;
-    border-bottom: 1px solid rgb(6, 1, 1);
+    border-bottom: 1px solid rgb(165, 165, 165);
     font-size: 0px;
     padding: 0px;
     margin: 0px;
 
     ::placeholder 
     {
-        color: #475b79;
+        color: #b1b1b1;
         font-size: 15px;
     }
     justify-content: left;
@@ -63,9 +64,9 @@ body {
 
 .cat-header input {
     font-size: 25px;
-    color: white;
+    color: #4e4e4e;
     border: 0px;
-    padding: 0px;
+    padding-right: 20px;
     background-color: transparent;
     box-shadow: border-box;
     outline: none;
@@ -73,7 +74,7 @@ body {
 
 .cat-title {
     font-size: 25px;
-    color: white;
+    color: #4e4e4e;
     border: 0px;
     padding: 0px;
     background-color: transparent;
@@ -91,18 +92,20 @@ body {
     flex: 1 1 10px;
     margin: 5px;
     list-style: disc;
+    position: relative;
     ::placeholder {
-        color: #475b79;
+        color: #b1b1b1;
     }
 }
 
 .cat-item input {
-    background-color: transparent;
+    background-color: none;
     font-size: 16px;
-    color: white;
-    border: 0px;
+    color: #b1b1b1;
+    border: none;
     outline: none;
     width: 100%;
+    padding-right: 20px;
     
 }
 
@@ -127,14 +130,14 @@ body {
     border-radius: 8px;
     font-size: 20px;
     border: 10px;
-    background-color: #007bff;
-    color: #ffffff;
+    background-color: #83c7f1;
+    color: #4e4e4e;
     padding: 10px 20px;
     cursor: pointer;
 }
 
 .create-button:hover {
-    background-color: #0056b3;
+    background-color: #76b4db;
 }
 
 /* Create Button END*/
@@ -160,9 +163,10 @@ body {
 .delete-task-icon {
     font-size: 20px;
     position: relative;
-    left: 200px;
-    bottom: 18px;
-    margin: -5px;
+    top: 0px;
+    right: 5px;
+    margin: 0;
+    cursor: pointer;
 }
 
 .delete-task-icon:hover {
@@ -171,9 +175,11 @@ body {
 
 .delete-category-icon {
     font-size: 20px;
-    position: relative;
-    left: 250px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
     margin: -5px;
+    cursor: pointer;
 }
 
 .delete-category-icon:hover {
@@ -192,7 +198,7 @@ body {
     color: #ffffff;
     height: 50vh;
     width: 75vw;
-    color: #495e7d;
+    color: #040a44;
 }
 
 

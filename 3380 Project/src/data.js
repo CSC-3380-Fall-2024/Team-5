@@ -2,7 +2,7 @@ export const data = [
   {
     id: 0,
     member: "Moemoe",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -12,7 +12,7 @@ export const data = [
   {
     id: 1,
     member: "Moe",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -22,7 +22,7 @@ export const data = [
   {
     id: 2,
     member: "Hop",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -32,7 +32,7 @@ export const data = [
   {
     id: 3,
     member: "Jordan",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -42,7 +42,7 @@ export const data = [
   {
     id: 4,
     member: "Tien",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/10/2024",
@@ -52,7 +52,7 @@ export const data = [
   {
     id: 5,
     member: "Pham",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/10/2024",
@@ -62,7 +62,7 @@ export const data = [
   {
     id: 6,
     member: "OOP Programing 6",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -72,7 +72,7 @@ export const data = [
   {
     id: 7,
     member: "OOP Programing",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -82,7 +82,7 @@ export const data = [
   {
     id: 8,
     member: "OOP Programing",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -92,7 +92,7 @@ export const data = [
   {
     id: 9,
     member: "OOP Programing",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -102,7 +102,7 @@ export const data = [
   {
     id: 10,
     member: "OOP Programing",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -112,7 +112,7 @@ export const data = [
   {
     id: 11,
     member: "OOP Programing 11",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -122,7 +122,7 @@ export const data = [
   {
     id: 12,
     member: "OOP Programing",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -132,7 +132,7 @@ export const data = [
   {
     id: 13,
     member: "OOP Programing",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -142,7 +142,7 @@ export const data = [
   {
     id: 14,
     member: "OOP Programing",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -152,7 +152,7 @@ export const data = [
   {
     id: 15,
     member: "OOP Programing",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -162,7 +162,7 @@ export const data = [
   {
     id: 16,
     member: "OOP Programing 17",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -172,7 +172,7 @@ export const data = [
   {
     id: 17,
     member: "OOP Programing",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -182,7 +182,7 @@ export const data = [
   {
     id: 18,
     member: "OOP Programing",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -192,7 +192,7 @@ export const data = [
   {
     id: 19,
     member: "OOP Programing",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
@@ -202,7 +202,7 @@ export const data = [
   {
     id: 20,
     member: "OOP Programing",
-    task: "Coding Payment function",
+    task: "",
     note: "",
     startDate: "10/03/2024",
     dueDate: "10/17/2024",
