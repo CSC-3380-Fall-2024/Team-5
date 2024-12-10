@@ -32,6 +32,7 @@ body {
   justify-content: space-between;
   padding: 0 30px 0 30px;
   box-shadow: 0 6px 7px -3px rgba(214, 214, 214, 0.35);
+  position: relative;
 }
 
 .menu-icon {
@@ -108,11 +109,11 @@ body {
   z-index: 12 !important;
 }
 .sidebar-header, .sidebar-list-item {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease-in-out;
 }
 
 #sidebar.collapsed .sidebar-list-item span {
-  .display: none;
+  display: none;
 }
 
 /* End Sidebar  */
