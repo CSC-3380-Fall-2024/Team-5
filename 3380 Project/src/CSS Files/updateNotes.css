@@ -62,7 +62,7 @@ button {
 }
 
 table {
-  width: 96%;
+  width: 100%;
   cursor: pointer;
   thead tr {
     background-color: #f3f4f6;
@@ -181,8 +181,7 @@ table {
 .pagination {
   background-color: #f3f4f6;
   padding: 8px 0px;
-  width: 96%;
-  width: 96%;
+  width: 100%;
   font-weight: 500;
   font-size: 16px;
   display: flex;

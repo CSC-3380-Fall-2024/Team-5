@@ -7,6 +7,7 @@
   background-color: #263043;
   padding: 40px 0;
   width: 90px;
+  z-index: 200;
 }
 
 .tab {
@@ -30,7 +31,7 @@
   height: 45px;
   width: 45%;
   line-height: 30px;
-  font-size: 18px;
+  font-size: 20px;
   color: #9e9ea4;
   cursor: pointer;
   margin-top: 10px;
@@ -54,4 +55,23 @@
 
 .tab.active .delete-button {
   display: inline;
+}
+
+.delete-button{
+  position: absolute;
+  border: none;
+  color:#666;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  height: 20px;
+}
+
+.delete-button:hover{
+  opacity: 0.5;
+}
+
+.subject-tabs-container {
+  grid-area: subject-tabs;
 }
