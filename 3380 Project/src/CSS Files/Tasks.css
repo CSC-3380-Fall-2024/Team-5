@@ -1,99 +1,106 @@
-.App{
-    font-family: Arial, sans-serif;
-    padding: 20px;
+.task-board {
+    position: relative;
+    height: 100vh;
+    background-color: #f9f9f9;
+    overflow: hidden;
 }
 
-form {
-    display:flex;
-    flex-direction: column;
-    margin-bottom: 20px;
+.sidebar {
+    position: absolute;
+    top: -380px;
+    right: 0;
+    width: 390px;
+    height: 380px;
+    background-color: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    padding: 80px 20px;
+    transition: top 0.3s ease;
+    z-index: 100;
 }
 
-input[type="text"],
-textarea {
+.sidebar.visible {
+    top: 0;
+}
+
+.task-input input,
+.task-input textarea {
     width: 100%;
+    margin-bottom: 10px;
     padding: 10px;
-    margin: 5px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 14px;
 }
 
-.task-board{
+input.error,
+textarea.error {
+    border: 1px solid rgba(216, 210, 210, 0.795);
+    background-color: #ffe6e6;
+}
+
+.shape-selection {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    height: 100vh;
-    position: relative;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-.task-boxes{
-    width: 100%;
-    height: calc(100vh - 100px);
-    position: relative;
-    overflow: hidden;
-    border: 1px spolid #ccc;
-    background-color: #ffffff;
-}
-
-.task-box{
-    border: 1px solid #007BFF;
-    border-radius: 5px;
-    padding: 5px;
-    width: 120px;
-    height: 80px;
-    margin: 10px 0;
+.task-shape {
     cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    transition: transform 0.1s;
-    background-color: #f9f9f9;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-    transition: background-color 0.3s;
+    color: #555;
 }
 
-.task-box:hover {
-    background-color: #f1f1f1;
+.task-shape.square {
+    width: 50px;
+    height: 50px;
+    background-color: #e0e0e0;
 }
 
-.task-box h3 {
-    margin: 0;
-    color: #333;
+.task-shape.circle {
+    width: 50px;
+    height: 50px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
 }
 
-.task-box p {
-    margin: 5px 0 0;
-    color: #666;
+.task-map {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
 }
 
-.delete-button{
+.resize-handle {
+    width: 10px;
+    height: 10px;
     position: absolute;
-    top: 5px;
-    right: 5px;
-    background: none;
-    border: none;
-    color:#666;
+    right: 0;
+    bottom: 0;
+    background-color: #007bff;
+    cursor: se-resize;
+}
+
+.action-buttons {
+    position: absolute;
+    bottom: 10px;
+    left: 2%;
+    display: flex;
+}
+
+.clear-all-btn,
+.delete-recent-btn {
+    padding: 10px 20px;
     font-size: 16px;
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-    width: 20px;
-    height: 20px;
-}
-
-.delete-button:hover{
-    opacity: 0.5;
-}
-
-button {
-    background-color: #007BFF;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
-    padding: 10px 15px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-button:hover {
+.clear-all-btn:hover,
+.delete-recent-btn:hover {
     background-color: #0056b3;
 }

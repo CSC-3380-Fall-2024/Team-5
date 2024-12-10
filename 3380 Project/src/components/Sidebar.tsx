@@ -4,6 +4,7 @@ import { IoIosCloud } from "react-icons/io";
 import { FaRegNoteSticky } from "react-icons/fa6";
 import { GrTree } from "react-icons/gr";
 import { Link } from "react-router-dom";
+
 import { IoArrowForwardCircle, IoArrowBackCircle } from "react-icons/io5";
 
 function Sidebar() {
@@ -30,7 +31,7 @@ function Sidebar() {
 
       <ul className="sidebar-list">
         <li className="sidebar-list-item">
-          <Link to="/">
+          <Link to="/categorycreation">
             <IoCreateOutline className="icon" /> {isCollapsed ? "" : "Category Creation"}
           </Link>
         </li>
