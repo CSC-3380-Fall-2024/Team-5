@@ -163,7 +163,6 @@ body {
 .delete-task-icon {
     font-size: 20px;
     position: relative;
-    top: 0px;
     right: 5px;
     margin: 0;
     cursor: pointer;
