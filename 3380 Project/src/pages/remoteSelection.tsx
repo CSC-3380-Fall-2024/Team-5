@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import RemoteSelectionComponent from '../components/RemoteSelectionComponent.tsx';
+import RemoteSelectionComponent from "../components/RemoteSelectionComponent.tsx"
 import "../CSS Files/remoteSelection.css";
 import "../CSS Files/CategoryComponent.css";
 import "../CSS Files/App.css";
 
-import { fetchTasks } from "../firebase/CategoryCreationCrudFunctions.ts";
+import { fetchTasks } from "../firebase/CRUD/CategoryCreationCrudFunctions.ts";
+import { auth } from "../firebase/firebase.ts";
 
 const teamId = "B18T0M2TwLngVuq8opN1";
 
@@ -34,6 +35,7 @@ function remoteSelection() {
         ),
       }));
       setTask(updatedTasks); //LOAD THE TASKS I BEG OF YOU
+      
     } catch (error) {
       console.error("error loading tasks: ", error);
     }

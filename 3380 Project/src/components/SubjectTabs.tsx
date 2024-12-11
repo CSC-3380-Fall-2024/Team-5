@@ -6,7 +6,7 @@ import {
   createSubjectTab,
   fetchSubjectTabs,
   deleteSubjectTab,
-} from "../firebase/SubjectTabsCrudFunctions";
+} from "../firebase/CRUD/SubjectTabsCrudFunctions";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 
 const SubjectTabs: React.FC = () => {
