@@ -1,12 +1,16 @@
 .logout-container {
-  display: flex;
-  flex-direction: row;
   position: fixed;
-  height: auto;
-  background-image: none;
+  left: 100px;
+  bottom: 20px; 
+  z-index: 101; 
 }
 
 .logout-button {
   background-color: #ffffff;
   color: #4e4e4e;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }

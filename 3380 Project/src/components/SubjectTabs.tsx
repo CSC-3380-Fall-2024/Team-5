@@ -14,7 +14,6 @@ const SubjectTabs: React.FC = () => {
   const [showInput, setShowInput] = useState<boolean>(false);
   const [activeTabIndex, setActiveTabIndex] = useState<number | null>(null);
   const [memberId, setMemberId] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
   const [previousPage, setPreviousPage] = useState<string | null>(null);
 
   const navigate = useNavigate();
@@ -28,7 +27,6 @@ const SubjectTabs: React.FC = () => {
       } else {
         setMemberId(null); // clear the user id if they are logged out
       }
-      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -71,7 +69,7 @@ const SubjectTabs: React.FC = () => {
         setTabs([...tabs, { id: result.id, name: newTabName }]); // add the new tab to the state
         resetNewTabName(); // clear input field
       } catch (error) {
-        console.error("Error adding tab to Firestore: ", error); // log any errors
+        console.error("Error adding tab: ", error); // log any errors
       }
     }
   };
@@ -151,11 +149,12 @@ const SubjectTabs: React.FC = () => {
             onChange={(e) => setNewTabName(e.target.value)} // update the tab name as user types
             placeholder="Name Subject"
           />
-          <IoIosAdd
-            className={'add-tab-icon ${showInput ? "active" : ""}'}
-            onClick={addTab} //applies an active class when the input is active
-          />
-          <IoIosAdd />
+          <span
+            className={`add-tab-icon ${showInput ? "active" : ""}`}
+            onClick={addTab}
+          >
+            ENTER
+          </span>
         </div>
       )}
     </div>
