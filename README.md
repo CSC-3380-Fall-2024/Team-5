@@ -58,7 +58,7 @@
 
 4. Open up a new terminal inside your project and navigate to the '3380 project' folder
    ```sh
-   cd 3380\ Project
+   cd "3380 Project"
    ```
 5. Install Firebase
    ```
