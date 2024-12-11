@@ -119,5 +119,7 @@ The last tab allows you to create task shapes and organize them in a way where y
 This feature allows users to make new tabs where you can view various projects once clicked. Right now there is a module for you to connect to a new project but we couldn't finish the functionality in time so for now the website can only be viewed as a single project.
 
 <br>
-  <img src="3380 Project/src/assets/subjectPic.png" alt= "sign in image">
+  <img src="3380 Project/src/assets/subjectPic.png" alt= "Subject Tab image">
 <br>
+
+##
