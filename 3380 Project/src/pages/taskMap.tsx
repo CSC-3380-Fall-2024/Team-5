@@ -16,18 +16,17 @@ const TaskMap: React.FC = () => {
   const [taskName, setTaskName] = useState<string>("");
   const [taskDescription, setTaskDescription] = useState<string>("");
   const [taskNameError, setTaskNameError] = useState<boolean>(false);
-  // for dragging tasks
   const [draggingTaskId, setDraggingTaskId] = useState<number | null>(null);
   const [dragStartOffset, setDragStartOffset] = useState({ x: 0, y: 0 });
-  // for resizing tasks
   const [resizingTaskId, setResizingTaskId] = useState<number | null>(null);
   const [resizeStartSize, setResizeStartSize] = useState({
     width: 0,
     height: 0,
   });
   const [resizeStartMouse, setResizeStartMouse] = useState({ x: 0, y: 0 });
+
   const defaultSize = 120;
-  // function to add new task
+
   const addTask = (shapeType: "square" | "circle", x: number, y: number) => {
     if (!taskName.trim()) {
       setTaskNameError(true);
@@ -45,14 +44,13 @@ const TaskMap: React.FC = () => {
         size: { width: defaultSize, height: defaultSize },
       },
     ]);
-
     setTaskName("");
     setTaskDescription("");
     setTaskNameError(false);
   };
 
   const toggleSidebar = () => setSidebarVisible((prev) => !prev);
-  // dragging task
+
   const handleDragStart = (e: MouseEvent, taskId: number) => {
     const task = tasks.find((task) => task.id === taskId);
     if (!task) return;
@@ -82,8 +80,6 @@ const TaskMap: React.FC = () => {
     );
   };
 
-  const handleDragEnd = () => setDraggingTaskId(null);
-  // resizing task
   const handleResizeStart = (e: MouseEvent, taskId: number) => {
     e.stopPropagation();
     const task = tasks.find((task) => task.id === taskId);
@@ -118,8 +114,6 @@ const TaskMap: React.FC = () => {
     );
   };
 
-  const handleResizeEnd = () => setResizingTaskId(null);
-  // clear all tasks and delete recent
   const clearAllTasks = () => setTasks([]);
   const deleteRecentTask = () =>
     setTasks((prevTasks) => prevTasks.slice(0, -1));
@@ -132,11 +126,11 @@ const TaskMap: React.FC = () => {
         handleResizeMove(e);
       }}
       onMouseUp={() => {
-        handleDragEnd();
-        handleResizeEnd();
+        setDraggingTaskId(null);
+        setResizingTaskId(null);
       }}
     >
-      {/*sidebar*/}
+      {/* Sidebar */}
       <button className="sidebar-toggle-button" onClick={toggleSidebar}>
         {sidebarVisible ? "Hide Sidebar" : "Show Sidebar"}
       </button>
@@ -157,7 +151,6 @@ const TaskMap: React.FC = () => {
           />
         </div>
         <div className="shape-selection">
-          {/*shape selection for adding tasks*/}
           <div
             className="task-shape square"
             onClick={() => addTask("square", 50, 50)}
@@ -169,7 +162,7 @@ const TaskMap: React.FC = () => {
         </div>
       </div>
 
-      {/*task map*/}
+      {/* Task Map */}
       <div className="task-map">
         {tasks.map((task) => (
           <div
@@ -196,7 +189,7 @@ const TaskMap: React.FC = () => {
         ))}
       </div>
 
-      {/* action button (del recent and clear all) */}
+      {/* Action Buttons */}
       <div className="action-buttons">
         <button className="clear-all-btn" onClick={clearAllTasks}>
           Clear All
