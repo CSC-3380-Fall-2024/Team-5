@@ -12,6 +12,7 @@ import {
 } from "../firebase/CRUD/CategoryCreationCrudFunctions";
 import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
+import LogOut from "../components/logOut";
 
 // Category type to define category structure
 export interface Category {

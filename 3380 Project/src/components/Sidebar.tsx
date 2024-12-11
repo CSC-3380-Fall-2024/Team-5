@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { IoCreateOutline } from "react-icons/io5";
+import * as React from "react";
+import { useState } from "react";
+import { IoArrowBackCircle, IoArrowForwardCircle, IoCreateOutline } from "react-icons/io5";
 import { IoIosCloud } from "react-icons/io";
 import { FaRegNoteSticky } from "react-icons/fa6";
 import { GrTree } from "react-icons/gr";
