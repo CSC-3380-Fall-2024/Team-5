@@ -16,7 +16,6 @@ export interface Tasks {
   element: JSX.Element;
 }
 
-
 function remoteSelection() {
 
   const [task, setTask] = useState<Tasks[]>([]);
@@ -52,7 +51,7 @@ function remoteSelection() {
  
   return (
     <div className="main-container">
-        <div className="categories-wrapper">
+        <div className="categories-container">
          {task.map((tasks) => tasks.element)}
       </div>
     </div>
