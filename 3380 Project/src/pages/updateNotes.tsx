@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useState } from "react";
-import { data } from "../data.js";
+import { data } from "../data.ts";
 import "../CSS Files/updateNotes.css";
 import TableRow from "../components/tableRow";
 import Pagination from "../components/Pagination";
