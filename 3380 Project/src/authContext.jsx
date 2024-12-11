@@ -19,8 +19,10 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
+
   const [users, setUsers] = useState([]);
   const teamId = "Tl7Ph2s1udw5ceTihmDJ";
+
 
   function signup(email, password) {
     console.log(auth.currentUser);
@@ -61,6 +63,7 @@ export function AuthProvider({ children }) {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       console.log("Auth", user);
       setCurrentUser(user);
+      setLoading(false);
     });
 
     return unsubscribe;
@@ -75,5 +78,9 @@ export function AuthProvider({ children }) {
     users,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 }

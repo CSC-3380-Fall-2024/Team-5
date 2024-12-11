@@ -1,12 +1,6 @@
 /* Tasks */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-.user
-{
+.user {
   display: flex;
   flex-wrap: wrap;
   flex: 1 1 5px;
@@ -16,10 +10,10 @@
   border-radius: 50%;
   color: white;
 }
-img:hover{
+img:hover {
   box-shadow: 0px 0px 5px 0px #000000;
-    border-radius: 10px;
-    box-shadow: 0px 0px 4px 0px #000000;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px 0px #000000;
 }
 .task-container {
   min-height: 125px;
@@ -39,35 +33,28 @@ img:hover{
   min-width: 250px;
   max-width: 300px;
 }
-.task-button
-{
-    height: 30px;
-    width: 50px;
-    font-size: 20px;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    margin: -5px;
-    border-radius: 25;
-
-
+.task-button {
+  height: 30px;
+  width: 50px;
+  font-size: 20px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  margin: -5px;
+  border-radius: 25;
 }
-.task-icon
-{
-    margin-top: -4px;
-    position: relative;
-    font-size: 30px;
-    
+.task-icon {
+  margin-top: -4px;
+  position: relative;
+  font-size: 30px;
 }
-.second-icon
-{
-   display: inline-flex;
-
+.second-icon {
+  display: inline-flex;
 }
 .task-button:hover {
-    box-shadow: 0px 0px 5px 0px #000000;
-    border-radius: 10px;
-    box-shadow: 0px 0px 4px 0px #000000;
+  box-shadow: 0px 0px 5px 0px #000000;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px 0px #000000;
 }
 
 /* tabs */

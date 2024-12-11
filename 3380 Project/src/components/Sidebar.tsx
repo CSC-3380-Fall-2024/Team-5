@@ -1,10 +1,11 @@
-import * as React from "react";
-import { useState } from "react";
-import { IoArrowBackCircle, IoArrowForwardCircle, IoCreateOutline } from "react-icons/io5";
+import React, { useState } from "react";
+import { IoCreateOutline } from "react-icons/io5";
 import { IoIosCloud } from "react-icons/io";
 import { FaRegNoteSticky } from "react-icons/fa6";
 import { GrTree } from "react-icons/gr";
 import { Link } from "react-router-dom";
+
+import { IoArrowForwardCircle, IoArrowBackCircle } from "react-icons/io5";
 
 function Sidebar() {
   const [isCollapsed, setIsCollaped] = useState(false);
