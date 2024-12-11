@@ -1,5 +1,6 @@
-import React, { useContext, useState, useEffect } from "react";
-import { auth, database } from "./firebase/firebase";
+import * as React from "react";
+import { useContext, useState, useEffect } from "react";
+import { auth, database } from "./firebase/firebase"
 import { collection, getDocs } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
@@ -10,7 +11,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 
-const AuthContext = React.createContext();
+const AuthContext = React.createContext(null);
 
 export function useAuth() {
   return useContext(AuthContext);
