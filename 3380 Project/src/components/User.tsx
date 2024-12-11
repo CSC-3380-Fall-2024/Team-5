@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import * as React from "react";
+import { useEffect, useState } from "react";
 import { database } from "../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import "../CSS Files/App.css";
@@ -18,10 +19,8 @@ function Users() {
     }));
     setUsers(users);
   }
-  console.log("Document written with ID: ", users.id);
   useEffect(() => {
     getUsers();
-
     setLoading(false);
 
     // return cleanup function
