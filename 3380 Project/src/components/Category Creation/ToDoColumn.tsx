@@ -9,7 +9,7 @@ import {
   deleteBackendTask,
   fetchTasks,
   updateBackendTask,
-} from "../../firebase/CategoryCreationCrudFunctions";
+} from "../../firebase/CRUD/CategoryCreationCrudFunctions";
 import "../../CSS Files/Columns.css";
 
 // defines a structure for each task created
@@ -39,7 +39,7 @@ export function AddTaskModal({
       onHide();
     }
   };
-  
+
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleAddTask();

@@ -15,7 +15,7 @@ import {
   fetchBackendCategoryTasks,
   updateBackendCategoryTask,
   updateBackendCategoryTitle,
-} from "../../firebase/CategoryCreationCrudFunctions";
+} from "../../firebase/CRUD/CategoryCreationCrudFunctions";
 
 // defines a structure for each category component
 interface CategoryComponentProps {
@@ -34,12 +34,8 @@ function CategoryComponent({
   const [tasks, setTasks] = useState<Task[]>([]); //inherits 'Task' type from 'ToDoColumn' and saves tasks locally for custom categories
   const [showTaskModal, setShowTaskModal] = useState(false); // Used to enable Add Task modal
   const [editTitle, setEditTitle] = useState(title); // Used to update the title in real time by storing value in local state
-  const {
-    category,
-    setCategory,
-    showTitleModal,
-    setShowTitleModal,
-  } = useCategory(); // defines needed states
+  const { category, setCategory, showTitleModal, setShowTitleModal } =
+    useCategory(); // defines needed states
 
   // fetches task data from backend and loads it into local state to render
   useEffect(() => {

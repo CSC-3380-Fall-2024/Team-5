@@ -9,7 +9,7 @@ import {
   createBackendCategory,
   deleteBackendCategory,
   fetchBackendCategories,
-} from "../firebase/CategoryCreationCrudFunctions";
+} from "../firebase/CRUD/CategoryCreationCrudFunctions";
 import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 
@@ -59,7 +59,6 @@ export const useCategory = () => {
   // UseEffect hook to fetch new data when something is changed
   useEffect(() => {
     loadCategories();
-    
   }, []);
 
   // outputs needed states to be used elsewhere
