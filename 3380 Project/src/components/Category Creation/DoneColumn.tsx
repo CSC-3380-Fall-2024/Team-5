@@ -9,7 +9,7 @@ import {
   deleteBackendTask,
   fetchTasks,
   updateBackendTask,
-} from "../../firebase/CategoryCreationCrudFunctions";
+} from "../../firebase/CRUD/CategoryCreationCrudFunctions";
 
 const DoneColumn: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);

@@ -1,4 +1,4 @@
-import { database } from "./firebase";
+import { database } from "../firebase";
 import { doc, setDoc, getDoc, deleteDoc, updateDoc, collection, addDoc, query, where, getDocs } from "firebase/firestore";
 
 // Main Category Functions

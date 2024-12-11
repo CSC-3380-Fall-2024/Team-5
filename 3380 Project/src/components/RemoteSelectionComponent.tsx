@@ -4,31 +4,31 @@ import "../CSS Files/CategoryComponent.css";
 import "../CSS Files/App.css";
 import { FcCheckmark } from "react-icons/fc";
 import { IoCheckmarkOutline } from "react-icons/io5";
-import { fetchTasks } from "../firebase/CategoryCreationCrudFunctions";
+import { fetchTasks } from "../firebase/CRUD/CategoryCreationCrudFunctions";
 import {
   creation,
   fetchAssigned,
   unassignYourself,
   getUsers,
-} from "../firebase/RemoteSelectionCRUD";
+} from "../firebase/CRUD/RemoteSelectionCRUD";
 import { auth } from "../firebase/firebase";
 //interface so tsx stops yelling at me
 interface RemoteSelectionProps {
   id: string;
   description: string;
 }
+interface Task {
+  id: string;
+  description: string;
+  name: string;
+}
 //team id
 const teamId = "B18T0M2TwLngVuq8opN1";
 //user route
 const userId = "Tl7Ph2s1udw5ceTihmDJ";
 
-interface Tasks {
-  id: string;
-  description: string;
-}
-
 function RemoteComponent({ id, description }: RemoteSelectionProps) {
-  const [tasks, setTasks] = useState<Tasks[]>([]); //tasks to render
+  const [tasks, setTasks] = useState<Task[]>([]); //tasks to render
   const [assignBack, setAssignBack] = useState<RemoteSelectionProps[]>([]); //assigned tasks
   const [signUp, setSignUp] = useState(false); //signing up for tasks
   const [pillarId, setPillarId] = useState(""); //putting the id here because ive lost control of my life
@@ -46,6 +46,7 @@ function RemoteComponent({ id, description }: RemoteSelectionProps) {
           //wowie it maps it
           id: tasks.id,
           description: tasks.description,
+          name: displayName,
         }));
         //this literally impedes nothing i have no idea why its red i love and hate comp sci
         setTasks(updatedTasks); //LOAD THE TASKS I BEG OF YOU
@@ -58,6 +59,7 @@ function RemoteComponent({ id, description }: RemoteSelectionProps) {
         const updatedAssignment = fetchedAssignment.map((assignBack) => ({
           id: assignBack.id,
           description: assignBack.description,
+          name: displayName,
         }));
         setAssignBack(updatedAssignment);
       } catch (error) {
@@ -74,6 +76,7 @@ function RemoteComponent({ id, description }: RemoteSelectionProps) {
     //}
     //}
   }, []);
+  const displayName = auth.currentUser.displayName;
   //assign yourself a task, and have that data stored in the backend
   const assignTask = async (taskDescription: string) => {
     try {
